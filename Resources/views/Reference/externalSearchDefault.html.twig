@@ -1,0 +1,56 @@
+<form method="POST" action="{{ path('icap_reference_copy_external_search', { 'resourceId': referenceBank.id, 'id': reference.id }) }}">
+    <div class="row-fluid">
+        <div class="span2">
+            {% if item.MediumImage is defined %}
+                <img src="{{ item.MediumImage.URL }}"/>
+                <input name="imageUrl" type="hidden" value="{{ item.MediumImage.URL }}"></input>
+            {% endif %}
+        </div>
+        {% if item.ItemAttributes is defined %}
+            <div class="span8">
+                {% if item.ItemAttributes.Title is defined %}
+                    <p><strong>{% trans %}Title{% endtrans %}{% trans %}:{% endtrans %} </strong>{{ item.ItemAttributes.Title|raw }}</p>
+                    <input name="title" type="hidden" value="{{ item.ItemAttributes.Title }}"></input>
+                {% endif %}
+                {% block externalSearchHeader %}
+                {% endblock %}
+            </div>
+            <div class="span2 text-right">
+                <input type="submit" class="btn" value="{% trans %}Copy{% endtrans %}"></input>
+            </div>
+        {% endif %}
+    </div>
+
+    {#
+    {% if item.DetailPageURL is defined %}
+        <p><strong>ASIN: </strong>{{ item.ASIN }}</p>
+    {% endif %}
+    {% if item.DetailPageURL is defined %}
+        <p><strong>DetailPageURL: </strong> <a href="{{ item.DetailPageURL }}">{{ item.DetailPageURL }}</a></p>
+    {% endif %}
+    #}
+
+    {% block externalSearchContent %}
+        {% if 'EditorialReviews' in item|keys %}
+            {% if item.EditorialReviews.EditorialReview is defined %}
+                {% if item.EditorialReviews.EditorialReview.Content is defined %}
+                    <p><strong>{% trans with {'%source%': item.EditorialReviews.EditorialReview.Source} %}Description from %source%{% endtrans %}</strong></p>
+                    <div>{{ item.EditorialReviews.EditorialReview.Content|raw }}</div>
+                    <input name="reviewSource_0" type="hidden" value="{{ item.EditorialReviews.EditorialReview.Source }}"></input>
+                    <input name="reviewContent_0" type="hidden" value="{{ item.EditorialReviews.EditorialReview.Content }}"></input>
+                {% else %}
+                    {% set nbReview = 0 %}
+                    {% for review in item.EditorialReviews.EditorialReview %}
+                        <p><strong>{% trans with {'%source%': review.Source} %}Description from %source%{% endtrans %}</strong></p>
+                        <div>{{ review.Content|raw }}</div>
+
+                        <input name="reviewSource_{{ nbReview }}" type="hidden" value="{{ review.Source }}"></input>
+                        <input name="reviewContent_{{ nbReview }}" type="hidden" value="{{ review.Content }}"></input>
+
+                        {% set nbReview = nbReview + 1 %}
+                    {% endfor %}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endblock %}
+</form>

@@ -1,0 +1,6 @@
+icap_referencebank_form_name : "Nom"
+icap_referencebank_options_form_referenceByPage: "Nombre de référence par page"
+icap_referencebank_options_form_amazonApiKey: "Votre clé api amazon"
+icap_referencebank_options_form_amazonSecretKey: "Votre clé secrète amazon"
+icap_referencebank_options_form_amazonAssociateTag: "Votre tag associé amazon"
+icap_referencebank_options_form_amazonCountry: "Sur quel amazon"

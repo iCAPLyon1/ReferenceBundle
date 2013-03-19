@@ -1,0 +1,4 @@
+icap_reference:
+    resource: "@ICAPReferenceBundle/Controller/"
+    type:     annotation
+    prefix:   /

@@ -1,0 +1,9 @@
+<form name="icap_reference_remove" 
+    method="POST"  
+    action="{{ path("icap_reference_remove", { 'resourceId': referenceBank.id, 'id': reference.id }) }}">
+    {{ form_rest(form) }}
+    <p class="text-center">
+        <input type="submit" value="Confirm" class="btn btn-danger"></input>    
+    </p>
+</form>
+

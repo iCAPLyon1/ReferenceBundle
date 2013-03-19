@@ -1,0 +1,13 @@
+services:
+    icap.listener.referencebank_listener:
+        class: ICAP\ReferenceBundle\Listener\ReferenceBankListener
+        calls:
+          - [setContainer, ["@service_container"]]
+        tags: 
+          - { name: kernel.event_listener, event: create_form_icap_referencebank, method: onCreateForm }
+          - { name: kernel.event_listener, event: create_icap_referencebank, method: onCreate }
+          - { name: kernel.event_listener, event: delete_icap_referencebank, method: onDelete }
+          #- { name: kernel.event_listener, event: export_icap_referencebank, method: onExport }
+          #- { name: kernel.event_listener, event: copy_icap_referencebank, method: onCopy }
+          - { name: kernel.event_listener, event: open_icap_referencebank, method: onOpen }
+          - { name: kernel.event_listener, event: plugin_options_icapreference, method: onAdministrate }

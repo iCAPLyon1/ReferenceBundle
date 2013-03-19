@@ -1,0 +1,20 @@
+<form method="POST" class="form-vertical" action="{{ path("icap_reference_create_type", { 'type': type }) }}">
+    {% include "ICAPReferenceBundle:Reference:icon.html.twig" %}
+    <div class="control-group">
+        {{ form_label(form.title, null,  {'label_attr': {'class': 'control-label'}}) }}
+        <div class="controls">
+            {{ form_errors(form.title) }}
+            {{ form_widget(form.title) }}
+        </div>
+    </div>
+
+    <div class="control-group">
+        {{ form_label(form.description, null,  {'label_attr': {'class': 'control-label'}}) }}
+        <div class="controls">
+            {{ form_errors(form.description) }}
+            {{ form_widget(form.description) }}
+        </div>
+    </div>
+    {{ form_rest(form) }}
+    <input type="submit" value="submit"/>
+</form>

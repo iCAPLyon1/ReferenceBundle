@@ -1,0 +1,101 @@
+{% extends "ICAPReferenceBundle::layout.html.twig" %}
+
+{% block reference_breadcrumb %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('icap_reference_show', { 'resourceId': referenceBank.id, 'id': reference.id }) }}"><i class="icon-bookmark"></i>{{ reference.title | capitalize }}</a> 
+        <span class="divider">/</span>
+    </li>
+    <li>
+        <a href="{{ path('icap_reference_edit', { 'resourceId': referenceBank.id, 'id': reference.id }) }}"><i class="icon-edit"></i>{% trans %}Edit{% endtrans %}</a> 
+        <span class="divider">/</span>
+    </li>
+    <li class="active"><i class="icon-search"></i>{% trans %}Amazon %searchCategory%{% endtrans %}</li>
+{% endblock %}
+
+{% block reference_content %}
+    <header>
+        <div class="row-fluid">
+            <div class="span5">
+                <div class="pagination">
+                    <form class="form-search" method="POST" action="{{ path('icap_reference_external_search_no_js', { 'resourceId': referenceBank.id, 'id': reference.id }) }}">
+                        <div class="input-append">
+                            <input name="search" value="{{ decodedSearch }}" class="search-query span5" type="text"></input>
+                            <button class="btn" type="submit"><i class="icon-search"></i> {% trans %}Amazon %searchCategory%{% endtrans %}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="span7 text-right">
+                {% if pager.haveToPaginate %}
+                    {{  
+                        pagerfanta(
+                            pager, 
+                            'twitter_bootstrap_translated', 
+                            {
+                                'proximity' : 1, 
+                                'routeName': 'icap_reference_external_search_paginated', 
+                                'routeParams': 
+                                {
+                                    'resourceId': referenceBank.id, 
+                                    'id': reference.id,
+                                    'search': search
+                                }
+                            }
+                        ) 
+                    }}
+                {% endif %}
+            </div>
+        </div>
+    </header> 
+    {% if pager %}
+        {% for item in pager.currentPageResults %}
+            <div class="well">
+                {% if reference.type == 'bibliography' %}
+                    {% include "ICAPReferenceBundle:Reference:externalSearchBibliography.html.twig" %}
+                {% elseif reference.type == 'filmography' %}
+                    {% include "ICAPReferenceBundle:Reference:externalSearchFilmography.html.twig" %}
+                {% elseif reference.type == 'discography' %}
+                    {% include "ICAPReferenceBundle:Reference:externalSearchDiscography.html.twig" %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if pager and pager.currentPageResults|length > 0 %}
+        <header>
+            <div class="row-fluid">
+                <div class="span5">
+                    <div class="pagination">
+                        <form class="form-search" method="POST" action="{{ path('icap_reference_external_search_no_js', { 'resourceId': referenceBank.id, 'id': reference.id }) }}">
+                            <div class="input-append">
+                                <input name="search" value="{{ decodedSearch }}" class="search-query span5" type="text"></input>
+                                <button class="btn" type="submit"><i class="icon-search"></i> {% trans %}Amazon %searchCategory%{% endtrans %}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="span7 text-right">
+                    {% if pager.haveToPaginate %}
+                        {{  
+                            pagerfanta(
+                                pager, 
+                                'twitter_bootstrap_translated', 
+                                {
+                                    'proximity' : 1, 
+                                    'routeName': 'icap_reference_external_search_paginated', 
+                                    'routeParams': 
+                                    {
+                                        'resourceId': referenceBank.id, 
+                                        'id': reference.id,
+                                        'search': search
+                                    }
+                                }
+                            ) 
+                        }}
+                    {% endif %}
+                </div>
+            </div>
+        </header> 
+    {% endif %}
+{% endblock %}

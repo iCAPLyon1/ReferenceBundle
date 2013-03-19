@@ -1,0 +1,20 @@
+{% if (reference.data and reference.data|length > 0) or (reference.customFields and reference.customFields|length > 0) %}
+    <table class="table">
+        <tbody>
+        {% for key,value in reference.data %}
+            <tr>
+                <td><strong>{{ key|capitalize|trans}}</strong></td>
+                <td>
+                    {{ value|join('/') }}
+                </td>
+            </tr>
+        {% endfor %}
+        {% for customField in reference.customFields %}
+            <tr>
+                <td><strong>{{ customField.fieldKey|capitalize }}</strong></td>
+                <td>{{ customField.fieldValue|raw }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}

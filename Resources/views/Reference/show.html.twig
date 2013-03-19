@@ -1,0 +1,47 @@
+{% extends "ICAPReferenceBundle::layout.html.twig" %}
+
+{% block reference_breadcrumb %}
+    {{ parent() }}
+    <li class="active"><i class="icon-bookmark"></i>{{ reference.title|capitalize }}</li>
+{% endblock %}
+
+{% block reference_content %}
+    <div class="container-fluid container-reference">
+        <div class="row-fluid">
+            <div class="span2">
+                <div class="portrate">
+                    {% include "ICAPReferenceBundle:Reference:icon.html.twig" %}
+                    <div class="caption">
+                        <small>{{ reference.type|trans }}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="span6">
+                <a href="{{ path('icap_reference_show', { 'resourceId': referenceBank.id, 'id': reference.id }) }}">
+                    <h3>
+                        {{ reference.title|capitalize}}
+                    </h3>
+                </a>
+                <p><small>{{ reference.description }}</small></p>  
+            </div>
+            {% if is_granted('EDIT', reference) %}
+                <div class="span4 btn-group text-right">
+                    <a href="{{ path('icap_reference_edit', { 'resourceId': referenceBank.id, 'id': reference.id }) }}" class="btn btn-primary">
+                        <i class="icon-edit"></i> {% trans %}Edit{% endtrans %}
+                    </a>
+                    <a href="{{ path('icap_reference_delete', { 'resourceId': referenceBank.id, 'id': reference.id }) }}" class="delete-reference btn btn-danger">
+                        <i class="icon-remove-sign"></i> {% trans %}Delete{% endtrans %}
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+        
+        <a class="reference_link" href="{{ reference.url }}">{{ reference.url }}</a>
+        {% include "ICAPReferenceBundle:Reference:dataReference.html.twig" with { "reference": reference } %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}}
+    <script src="{{ asset('bundles/icapreference/js/delete.js') }}"></script>
+{% endblock %}

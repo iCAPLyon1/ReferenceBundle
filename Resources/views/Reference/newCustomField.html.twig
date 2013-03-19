@@ -1,0 +1,28 @@
+{% extends "ICAPReferenceBundle::layout.html.twig" %}
+
+{% block reference_breadcrumb %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('icap_reference_show', { 'resourceId': referenceBank.id, 'id': reference.id }) }}"><i class="icon-bookmark"></i>{{ reference.title|capitalize }}</a> 
+        <span class="divider">/</span>
+    </li>
+    <li>
+        <a href="{{ path('icap_reference_edit', { 'resourceId': referenceBank.id, 'id': reference.id }) }}"><i class="icon-edit"></i>{% trans %}Edit{% endtrans %}</a> 
+        <span class="divider">/</span>
+    </li>
+    <li class="active">{% trans %}Add custom field{% endtrans %}</li>
+{% endblock %}
+
+{% block reference_content %}
+    <div class="container-fluid new-reference">
+        <div class="row-fluid">
+            <div class="span4 offset4">
+                <header class="page-header">
+                    <h3>{% trans %}Add custom field{% endtrans %}</h3>
+                </header>
+                {% include "ICAPReferenceBundle:Reference:newCustomFieldForm.html.twig" %}
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

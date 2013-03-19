@@ -1,0 +1,10 @@
+{% extends "ICAPReferenceBundle:Reference:ListDetailDefault.html.twig" %}
+
+{% block reference_content %}
+    <small>
+        {% if reference.data.artist is defined %}
+            {{ reference.data.artist|upper }}
+        {% endif %}
+        <p>Discography</p>
+    </small>
+{% endblock %}

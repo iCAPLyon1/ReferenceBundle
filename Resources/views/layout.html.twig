@@ -1,0 +1,47 @@
+{% extends 'ClarolineCoreBundle:Workspace:layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/icapreference/css/styles.css') }}"/>
+{% endblock %}
+
+{% block section_content %}
+    <header>
+        <ul class="breadcrumb">
+            {% for item in pathArray %}
+                <li>
+                    {% if not loop.last %}
+                        <a href="{{ path('claro_workspace_open_tool', {'workspaceId': workspace.getId(), 'toolName': 'resource_manager'}) }}#resources/{{ item.id }}">
+                            {% if loop.first %}
+                                <i class="icon-folder-open-alt"></i>Ressources 
+                            {% else %}
+                                {{ item.name }}
+                            {% endif %}
+                        </a>
+                        <span class="divider">/</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+
+            {% block reference_breadcrumb %}
+                <li>
+                    <a href="{{ path('icap_reference_list', { 'resourceId': referenceBank.id }) }}"><i class="icon-file"></i>{{ referenceBank.name }}</a>
+                    <span class="divider">/</span>
+                </li>
+            {% endblock %}
+        </ul>
+
+<!--         <div class="container-fluid">
+            <h1>References bank</h1>
+            <p>Cite your sources...</p>
+        </div> -->
+    </header>
+
+    {% block reference_content %}
+    {% endblock %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/icapreference/js/script.js') }}"></script>
+{% endblock %}

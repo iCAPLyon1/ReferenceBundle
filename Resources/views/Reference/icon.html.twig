@@ -1,0 +1,9 @@
+{% if reference.imageUrl  != null and reference.imageUrl != '' and "http" in reference.imageUrl %}
+    <img class="img-polaroid" src="{{ reference.imageUrl }}"/>
+{% else %}
+    {% if reference.iconName %}
+        <img class="img-polaroid" src="{{ asset('bundles/'~reference.iconName) }}"/>
+    {% else %}
+        <img class="img-polaroid" src="{{ asset('bundles/icapreference/images/reference_default.png') }}"/>
+    {% endif %}
+{% endif %}

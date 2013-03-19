@@ -1,0 +1,23 @@
+{% extends "ICAPReferenceBundle:Reference:externalSearchDefault.html.twig" %}
+
+{% block externalSearchHeader %}
+    {% if item.ItemAttributes.Artist is defined %}
+        <p><strong>{% trans %}Artist{% endtrans %}{% trans %}:{% endtrans %} </strong>{{ item.ItemAttributes.Artist|raw|join(', ') }}</p>
+        <input name="artist" type="hidden" value="{{ item.ItemAttributes.Artist|join(', ') }}"></input>
+    {% endif %}
+    {% if item.ItemAttributes.Label is defined %}
+        <p><strong>{% trans %}Label{% endtrans %}{% trans %}:{% endtrans %} </strong>{{ item.ItemAttributes.Label|raw|join(', ') }}</p>
+        <input name="label" type="hidden" value="{{ item.ItemAttributes.Label|join(', ') }}"></input>
+    {% endif %}
+    {% if item.ItemAttributes.ReleaseDate is defined %}
+        <p><strong>{% trans %}Releasedate{% endtrans %}{% trans %}:{% endtrans %} </strong>{{ item.ItemAttributes.ReleaseDate|date("d F Y") }}</p>
+        <input name="releaseDate" type="hidden" value="{{ item.ItemAttributes.ReleaseDate|date("d F Y") }}"></input>
+    {% endif %}
+{% endblock %}
+
+{% block externalSearchContent %}
+    {{ parent() }}
+    {#
+    {{ item|json_encode() }}
+    #}
+{% endblock %}

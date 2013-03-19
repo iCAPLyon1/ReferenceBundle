@@ -1,0 +1,16 @@
+{% extends "ICAPReferenceBundle:Reference:ListDetailDefault.html.twig" %}
+
+{% block reference_content %}
+    <small>
+        {% if reference.data.director is defined %}
+            {{ reference.data.director|upper }}
+        {% endif %}
+        <br/>
+
+        {% if reference.data.actors is defined %}
+            {{ reference.data.actors }}
+        {% endif %}
+
+        <p>Filmography</p>
+    </small>
+{% endblock %}

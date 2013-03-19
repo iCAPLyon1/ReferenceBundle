@@ -1,0 +1,10 @@
+{% extends "ICAPReferenceBundle:Reference:ListDetailDefault.html.twig" %}
+
+{% block reference_content %}
+    <small>
+        {% if reference.data.author is defined %}
+            {{ reference.data.author|upper }}
+        {% endif %}
+        <p>Bibliography</p>
+    </small>
+{% endblock %}

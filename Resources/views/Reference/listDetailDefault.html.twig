@@ -1,0 +1,9 @@
+<a href="{{ path('icap_reference_show', { 'resourceId': referenceBank.id, 'id': reference.id }) }}">
+    <h3 class="reference-list-item-title">
+        {% block reference_title %}
+            {{ reference.title|capitalize }}
+        {% endblock %}
+    </h3>
+</a>
+{% block reference_content %}
+{% endblock %}

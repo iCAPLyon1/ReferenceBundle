@@ -1,0 +1,23 @@
+{% extends "ICAPReferenceBundle::layout.html.twig" %}
+
+{% block reference_breadcrumb %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('icap_reference_show', { 'resourceId': referenceBank.id, 'id': reference.id }) }}">
+            <i class="icon-bookmark"></i>{{ reference.title | capitalize }}
+        </a> 
+        <span class="divider">/</span>
+    </li>
+    <li class="active"><i class="icon-remove-sign"></i>Delete</li>
+{% endblock %}
+
+{% block reference_content %}
+    <div class="container-fluid">
+        <div class="text-center">
+            <header class="page-header">
+                <h3>Are you sure to delete "{{ reference.title|capitalize }}"?</h3>
+            </header>
+            {% include "ICAPReferenceBundle:Reference:deleteForm.html.twig" %}
+        </div>
+    </div>
+{% endblock %}

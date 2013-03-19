@@ -1,0 +1,8 @@
+plugin:
+    has_options: true
+
+    resources:
+        - name: icap_referencebank
+          class: ICAP\ReferenceBundle\Entity\ReferenceBank
+          is_visible: true
+          is_browsable: false

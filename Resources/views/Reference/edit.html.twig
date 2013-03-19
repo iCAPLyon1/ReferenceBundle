@@ -1,0 +1,133 @@
+{% extends "ICAPReferenceBundle::layout.html.twig" %}
+
+{% block reference_breadcrumb %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('icap_reference_show', { 'resourceId': referenceBank.id, 'id': reference.id }) }}"><i class="icon-bookmark"></i>{{ reference.title | capitalize }}</a> 
+        <span class="divider">/</span>
+    </li>
+    <li class="active"><i class="icon-edit"></i>{% trans %}Edit{% endtrans %}</li>
+{% endblock %}
+
+{% block reference_content %}
+    <div class="container-fluid container-reference">
+        <form method="POST" action="{{ path('icap_reference_update', { 'resourceId': referenceBank.id, 'id': reference.id }) }}">
+            <div class="row-fluid">
+                <div class="span2">
+                    <div class="portrate">
+                        {% include "ICAPReferenceBundle:Reference:icon.html.twig" %}
+                        <div class="caption">
+                            <small>{{ reference.type|trans }}</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    {{ form_row(form.title) }} 
+                    {% if searchCategory != null %}
+                        <a id="externalSearch" class="btn hide" 
+                            href="{{ path('icap_reference_external_search', { 'resourceId': referenceBank.id, 'id': reference.id, 'search': 'searchTags' }) }}">
+                            <i class="icon-search"></i> {% trans %}Search on Amazon %searchCategory%{% endtrans %}
+                        </a>
+                    {% endif %}
+                    {{ form_row(form.description) }} 
+                    {{ form_row(form.imageUrl) }} 
+                </div>
+                <div class="span4 btn-group text-right">
+                    <a href="{{ path('icap_reference_show', { 'resourceId': referenceBank.id, 'id': reference.id }) }}" class="btn btn-primary">
+                        <i class="icon-bookmark"></i> {% trans %}Show{% endtrans %}
+                    </a>
+                    <a href="{{ path('icap_reference_delete', { 'resourceId': referenceBank.id, 'id': reference.id }) }}" class="delete-reference btn btn-danger">
+                        <i class="icon-remove-sign"></i> {% trans %}Delete{% endtrans %}
+                    </a>
+                </div>
+            </div>
+             <div class="row-fluid">
+                <div class="span10 offset2">
+                    {{ form_row(form.data) }}
+                    <label>{% trans %}Additional fields{% endtrans %}</label>
+                    <a id="addCustomFieldLink" href="{{ path('icap_reference_new_custom_field', { 'resourceId': referenceBank.id, 'id': reference.id }) }}" class="btn">
+                        {% trans %}Add custom field{% endtrans %}
+                    </a>
+                    <ul class="customFields" data-prototype="{{ form_widget(form.customFields.vars.prototype)|e }}">
+                        {% for customField in form.customFields %}
+                            {{ form_label(customField, null,  {'label_attr': {'style': 'display: none;'}}) }}
+                            <li class="custom_field">{{ form_errors(customField) }}{{ form_widget(customField) }}</li>
+                            <a class="deleteCustomFieldLink" href="{{ path('icap_reference_delete_custom_field', { 'resourceId': referenceBank.id, 'id': customField.vars.data.id }) }}">
+                                delete
+                            </a>
+                        {% endfor %}
+                    </ul>
+                    {{ form_row(form.customFields,  {'label_attr': {'style': 'display: none;'}}) }}
+                    {{ form_rest(form) }}
+                    <input type="submit" value="{% trans %}Save reference{% endtrans %}" class="btn btn-primary"/>
+                </div>
+            </div>
+        </form>
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/icapreference/js/external_search.js') }}"></script>
+    <script type="text/javascript">
+        // Récupère le div qui contient la collection de tags
+        var collectionHolder = $('ul.customFields');
+
+        // ajoute un lien « add a tag »
+        var $addCustomFieldLink = $('<a href="#" class="add_tag_link btn">{% trans %}Add custom field{% endtrans %}</a>');
+        var $newLinkLi = $('<li class="custom_field"></li>').append($addCustomFieldLink);
+
+        jQuery(document).ready(function() {
+            // ajoute un lien de suppression à tous les éléments li de
+            // formulaires de tag existants
+            collectionHolder.find('li').each(function() {
+                addCustomFieldFormDeleteLink($(this));
+            });
+
+            // ajoute l'ancre « ajouter un tag » et li à la balise ul
+            collectionHolder.append($newLinkLi);
+
+            $addCustomFieldLink.on('click', function(e) {
+                // empêche le lien de créer un « # » dans l'URL
+                e.preventDefault();
+
+                // ajoute un nouveau formulaire tag (voir le prochain bloc de code)
+                addCustomFieldForm(collectionHolder, $newLinkLi);
+            });
+
+            $('#addCustomFieldLink').hide();
+            $('.deleteCustomFieldLink').hide();
+        });
+
+        function addCustomFieldForm(collectionHolder, $newLinkLi) {
+            // Récupère l'élément ayant l'attribut data-prototype comme expliqué plus tôt
+            var prototype = collectionHolder.attr('data-prototype');
+
+            // Remplace '__name__' dans le HTML du prototype par un nombre basé sur
+            // la longueur de la collection courante
+            var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
+
+
+            // Affiche le formulaire dans la page dans un li, avant le lien "ajouter un tag"
+            var $newFormLi = $('<li class="custom_field"></li>').append(newForm);
+            $newLinkLi.before($newFormLi);
+
+            // ajoute un lien de suppression au nouveau formulaire
+            addCustomFieldFormDeleteLink($newFormLi);
+        }
+
+        function addCustomFieldFormDeleteLink($tagFormLi) {
+            var $removeFormA = $('<a href="#" class="btn btn-danger">x</a><div class="clear"></div>');
+            $tagFormLi.append($removeFormA);
+
+            $removeFormA.on('click', function(e) {
+                // empêche le lien de créer un « # » dans l'URL
+                e.preventDefault();
+
+                // supprime l'élément li pour le formulaire de tag
+                $tagFormLi.remove();
+            });
+        }
+    </script>
+{% endblock %}
