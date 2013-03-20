@@ -46,7 +46,7 @@
                             {% elseif reference.type == 'discography' %}
                                 {% include "ICAPReferenceBundle:Reference:listDetailDiscography.html.twig" %}
                             {% else %}
-                                {% include "ICAPReferenceBundle:Reference:listDetailDiscography.html.twig" %}
+                                {% include "ICAPReferenceBundle:Reference:listDetailDefault.html.twig" %}
                             {% endif %}
                         </div>
                         {% if is_granted('EDIT', reference) %}
