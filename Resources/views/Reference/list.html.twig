@@ -40,13 +40,13 @@
                         </div>
                         <div class="span7">
                             {% if reference.type == 'bibliography' %}
-                                {% include "ICAPReferenceBundle:Reference:ListDetailBibliography.html.twig" %}
+                                {% include "ICAPReferenceBundle:Reference:listDetailBibliography.html.twig" %}
                             {% elseif reference.type == 'filmography' %}
-                                {% include "ICAPReferenceBundle:Reference:ListDetailFilmography.html.twig" %}
+                                {% include "ICAPReferenceBundle:Reference:listDetailFilmography.html.twig" %}
                             {% elseif reference.type == 'discography' %}
-                                {% include "ICAPReferenceBundle:Reference:ListDetailDiscography.html.twig" %}
+                                {% include "ICAPReferenceBundle:Reference:listDetailDiscography.html.twig" %}
                             {% else %}
-                                {% include "ICAPReferenceBundle:Reference:ListDetailDiscography.html.twig" %}
+                                {% include "ICAPReferenceBundle:Reference:listDetailDiscography.html.twig" %}
                             {% endif %}
                         </div>
                         {% if is_granted('EDIT', reference) %}
