@@ -10,7 +10,7 @@ class AmazonECSAdapter implements AdapterInterface
     protected $amazonEcs;
     protected $search;
 
-    public function __construct(AmazonECS $amazonEcs, $search) 
+    public function __construct(AmazonECS $amazonEcs, $search)
     {
         $this->amazonEcs = $amazonEcs;
         $this->search = $search;
@@ -24,15 +24,15 @@ class AmazonECSAdapter implements AdapterInterface
      * @api
      */
     public function getNbResults()
-    {  
+    {
         $this->amazonEcs->returnType(AmazonECS::RETURN_TYPE_ARRAY);
         $searchResult = $this->amazonEcs->search($this->search);
 
-        if($searchResult['Items']['Request']['IsValid'] == 'True') {
+        if ($searchResult['Items']['Request']['IsValid'] == 'True') {
             $totalResults = $searchResult['Items']['TotalResults'];
 
             //Amazon restriction
-            if($totalResults > 100) {
+            if ($totalResults > 100) {
                 $totalResults = 100;
             }
 
@@ -52,14 +52,14 @@ class AmazonECSAdapter implements AdapterInterface
      *
      * @api
      */
-    public function getSlice($offset, $length) 
+    public function getSlice($offset, $length)
     {
         // We can"t change number item by page.
         $length = 10;
 
         $page = 1;
-        if($offset != 0) {
-            $page = ($offset / 10)+1;
+        if ($offset != 0) {
+            $page = ($offset / 10) + 1;
         }
 
         $this->amazonEcs->page($page);
@@ -67,7 +67,7 @@ class AmazonECSAdapter implements AdapterInterface
         $this->amazonEcs->returnType(AmazonECS::RETURN_TYPE_ARRAY);
         $searchResult = $this->amazonEcs->search($this->search);
 
-        if($searchResult['Items']['Request']['IsValid'] == 'True') {
+        if ($searchResult['Items']['Request']['IsValid'] == 'True') {
 
             return $searchResult['Items']['Item'];
         } else {

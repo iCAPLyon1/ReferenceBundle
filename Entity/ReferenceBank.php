@@ -12,7 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
 class ReferenceBank extends AbstractResource
 {
      /**
-     * @ORM\OneToMany(targetEntity="ICAP\ReferenceBundle\Entity\Reference", mappedBy="referenceBank", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(
+     *      targetEntity="ICAP\ReferenceBundle\Entity\Reference",
+     *      mappedBy="referenceBank",
+     *      cascade={"persist"},
+     *      orphanRemoval=true
+     * )
      */
     protected $references;
 
@@ -34,7 +39,7 @@ class ReferenceBank extends AbstractResource
     {
         $customField->setReferenceBank($this);
         $this->references[] = $reference;
-    
+
         return $this;
     }
 
@@ -65,12 +70,13 @@ class ReferenceBank extends AbstractResource
         $pathArray = array();
         foreach ($pathItems as $item) {
             preg_match("/-([0-9]+)$/", $item, $matches);
-            if(count($matches)>0){
+            if (count($matches) > 0) {
                 $id = substr($matches[0], 1);
                 $name = preg_replace("/-([0-9]+)$/", "", $item);
-                $pathArray[] = array('id' => $id, 'name' => $name); 
+                $pathArray[] = array('id' => $id, 'name' => $name);
             }
         }
+        
         return $pathArray;
     }
 }

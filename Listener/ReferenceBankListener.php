@@ -57,21 +57,22 @@ class ReferenceBankListener extends ContainerAware
         $event->stopPropagation();
     }
 
-    public function onDelete(DeleteResourceEvent $event) {
+    public function onDelete(DeleteResourceEvent $event)
+    {
         $em = $this->container->get('doctrine.orm.entity_manager');
         $em->remove($event->getResource());
         $event->stopPropagation();
     }
 
 
-    public function onOpen(OpenResourceEvent $event) {
+    public function onOpen(OpenResourceEvent $event)
+    {
         $route = $this->container
             ->get('router')
             ->generate(
                 'icap_reference_list',
                 array('resourceId' => $event->getResource()->getId())
-            )
-        ;
+            );
         $event->setResponse(new RedirectResponse($route));
         $event->stopPropagation();
     }
@@ -81,12 +82,11 @@ class ReferenceBankListener extends ContainerAware
         $referenceOptionsList = $this->container
             ->get('doctrine.orm.entity_manager')
             ->getRepository('ICAPReferenceBundle:ReferenceBankOptions')
-            ->findAll()
-        ;
+            ->findAll();
 
         $referenceOptions = null;
-        if ((count($referenceOptionsList)) > 0) { 
-            $referenceOptions = $referenceOptionsList[0]; 
+        if ((count($referenceOptionsList)) > 0) {
+            $referenceOptions = $referenceOptionsList[0];
         } else {
             $referenceOptions = new ReferenceBankOptions();
         }

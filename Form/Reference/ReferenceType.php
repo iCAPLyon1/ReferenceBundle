@@ -15,13 +15,11 @@ class ReferenceType extends AbstractType
             ->add('imageUrl')
             ->add('description')
             ->add('type', 'hidden')
-            ->add('url', 'hidden')
-        ;
+            ->add('url', 'hidden');
 
         if($options['dataType']) {
             $builder
-                ->add('data', $options['dataType'], array('label_attr' => array('style' => 'display:none')))
-            ;
+                ->add('data', $options['dataType'], array('label_attr' => array('style' => 'display:none')));
         }
     }
 

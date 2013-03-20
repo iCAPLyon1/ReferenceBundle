@@ -10,8 +10,8 @@ class EditReferenceType extends ReferenceType
     {
         parent::buildForm($builder, $options);
         $builder->add(
-            'customFields', 
-            'collection', 
+            'customFields',
+            'collection',
             array(
                 'type' => new CustomFieldType(),
                 'allow_add' => true,

@@ -18,8 +18,7 @@ class FilmographyType extends AbstractReferenceDataExtractor
             ->add('publisher', null, array('required' => false))
             ->add('producer', null, array('required' => false))
             ->add('releaseDate', null, array('required' => false))
-            ->add('duration', 'integer', array('required' => false))
-        ;
+            ->add('duration', 'integer', array('required' => false));
     }
 
     public function getName()
@@ -34,21 +33,25 @@ class FilmographyType extends AbstractReferenceDataExtractor
         $data = $reference->getData();
         
         $actors = $request->get('actors');
-        if($actors != null)
-            $data['actors'] = $actors;    
-        
+        if ($actors != null) {
+            $data['actors'] = $actors;
+        }
+
         $director = $request->get('director');
-        if($director != null)
+        if ($director != null) {
             $data['director'] = $director;
-        
+        }
+
         $publisher = $request->get('publisher');
-        if($publisher != null)
+        if ($publisher != null) {
             $data['publisher'] = $publisher;
-        
+        }
+
         $releaseDate = $request->get('releaseDate');
-        if($releaseDate != null)
+        if ($releaseDate != null) {
             $data['releaseDate'] = $releaseDate;
-        
+        }
+
         $reference->setData($data);
 
         return $reference;

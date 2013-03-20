@@ -10,7 +10,7 @@ class FormManager
 {
     protected $container;
 
-    public function __construct($container) 
+    public function __construct($container)
     {
         $this->container = $container;
     }
@@ -30,13 +30,37 @@ class FormManager
         //return $this->getContainer()->getParameter('referencesConfiguration');
 
         $types = array(
-            'default' => array('label' => 'other', 'dataType' => 'default', 'service' => 'icap_type.reference_default', 'icon' => 'icapreference/images/reference_default.png', 'amazon_search_category' => null),
-            'bibliography' => array('label' => 'bibliography', 'dataType' => 'bibliography', 'service' => 'icap_type.reference_bibliography', 'icon' => 'icapreference/images/reference_book.png', 'amazon_search_category' => 'Books'),
-            'filmography' => array('label' => 'filmography', 'dataType' => 'filmography', 'service' => 'icap_type.reference_filmography', 'icon' => 'icapreference/images/reference_film.png', 'amazon_search_category' => 'DVD'),
-            'discography' => array('label' => 'discography', 'dataType' => 'discography', 'service' => 'icap_type.reference_discography', 'icon' => 'icapreference/images/reference_disc.png', 'amazon_search_category' => 'Music')
+            'default' => array(
+                'label' => 'other',
+                'dataType' => 'default',
+                'service' => 'icap_type.reference_default',
+                'icon' => 'icapreference/images/reference_default.png',
+                'amazon_search_category' => null
+            ),
+            'bibliography' => array(
+                'label' => 'bibliography',
+                'dataType' => 'bibliography',
+                'service' => 'icap_type.reference_bibliography',
+                'icon' => 'icapreference/images/reference_book.png',
+                'amazon_search_category' => 'Books'
+            ),
+            'filmography' => array(
+                'label' => 'filmography',
+                'dataType' => 'filmography',
+                'service' => 'icap_type.reference_filmography',
+                'icon' => 'icapreference/images/reference_film.png',
+                'amazon_search_category' => 'DVD'
+            ),
+            'discography' => array(
+                'label' => 'discography',
+                'dataType' => 'discography',
+                'service' => 'icap_type.reference_discography',
+                'icon' => 'icapreference/images/reference_disc.png',
+                'amazon_search_category' => 'Music'
+            )
         );
         $referencesConfiguration = array('types' => $types);
-        
+
         return $referencesConfiguration;
     }
 
@@ -48,7 +72,7 @@ class FormManager
             array(
                 'dataType' => $this->getDataType($type)
             )
-        ); 
+        );
     }
 
     public function getEditForm($type, $reference = null)
@@ -59,7 +83,7 @@ class FormManager
             array(
                 'dataType' => $this->getDataType($type)
             )
-        ); 
+        );
     }
 
     public function getCustomForm($customField = null)
@@ -67,7 +91,7 @@ class FormManager
         return $this->getFormFactory()->create(
             new CustomFieldType(),
             $customField
-        ); 
+        );
     }
 
     public function getDataType($type)
@@ -92,7 +116,7 @@ class FormManager
         $types = $referencesConfiguration['types'];
 
         $icon = $types[$type]['icon'];
-        if(!$icon) {
+        if (!$icon) {
             $icon = 'icapreference/images/reference_default.png';
         }
 

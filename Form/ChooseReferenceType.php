@@ -10,7 +10,7 @@ class ChooseReferenceType extends AbstractType
 {
     protected $container;
 
-    public function __construct($container) 
+    public function __construct($container)
     {
         $this->container = $container;
     }
@@ -21,7 +21,7 @@ class ChooseReferenceType extends AbstractType
     }
 
     public function getReferenceTypes()
-    { 
+    {
         $referenceTypes = array();
         $serviceFormManager = $this->getContainer()->get('icap_reference.form_manager');
         $configuration = $serviceFormManager->getReferencesConfiguration();
@@ -35,14 +35,12 @@ class ChooseReferenceType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('type', 'choice', array(
-                'choices' => $this->getReferenceTypes(),
-                'preferred_choices' => array('default'),
-                'empty_value' => 'choose a type',
-                'empty_data' => null
-            ))
-        ;
+        $builder->add('type', 'choice', array(
+            'choices' => $this->getReferenceTypes(),
+            'preferred_choices' => array('default'),
+            'empty_value' => 'choose a type',
+            'empty_data' => null
+        ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

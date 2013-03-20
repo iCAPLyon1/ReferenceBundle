@@ -15,14 +15,14 @@ class ReferenceBankOptionsType extends AbstractType
         $builder->add('amazonAssociateTag');
         $builder->add('amazonCountry', 'choice', array(
             'choices' => array(
-                'fr' => 'fr', 
-                'com' => 'com', 
-                'co.uk' => 'co.uk', 
-                'de' => 'de', 
-                'ca' => 'ca', 
-                'co.jp' => 'co.jp', 
-                'it' => 'it', 
-                'cn' => 'cn', 
+                'fr' => 'fr',
+                'com' => 'com',
+                'co.uk' => 'co.uk',
+                'de' => 'de',
+                'ca' => 'ca',
+                'co.jp' => 'co.jp',
+                'it' => 'it',
+                'cn' => 'cn',
                 'es' => 'es'
             )
         ));

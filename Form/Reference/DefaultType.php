@@ -11,17 +11,11 @@ class DefaultType extends AbstractReferenceDataExtractor
     {
         $builder
             ->add('year', 'integer', array('required' => false))
-            ->add('language', null, array('required' => false))
-        ;
+            ->add('language', null, array('required' => false));
     }
 
     public function getName()
     {
         return 'default';
-    }
-
-    public function extractData(Request $request, $reference) 
-    {
-        return parent::extractData($request, $reference);
     }
 }

@@ -55,12 +55,20 @@ class Reference
     protected $data;
 
     /**
-     * @ORM\OneToMany(targetEntity="ICAP\ReferenceBundle\Entity\CustomField", mappedBy="reference", cascade={"all"}, orphanRemoval=true)
+     * @ORM\OneToMany(
+     *      targetEntity="ICAP\ReferenceBundle\Entity\CustomField",
+     *      mappedBy="reference", 
+     *      cascade={"all"}, 
+     *      orphanRemoval=true
+     * )
      */
     protected $customFields;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ICAP\ReferenceBundle\Entity\ReferenceBank", inversedBy="references")
+     * @ORM\ManyToOne(
+     *      targetEntity="ICAP\ReferenceBundle\Entity\ReferenceBank",
+     *      inversedBy="references"
+     * )
      * @ORM\JoinColumn(name="referencebank_id", referencedColumnName="id")
      */
     protected $referenceBank;
@@ -92,7 +100,7 @@ class Reference
     public function setTitle($title)
     {
         $this->title = $title;
-    
+
         return $this;
     }
 
@@ -105,7 +113,7 @@ class Reference
     {
         return $this->title;
     }
-    
+
     /**
      * Set imageUrl
      *
@@ -115,7 +123,7 @@ class Reference
     public function setImageUrl($imageUrl)
     {
         $this->imageUrl = $imageUrl;
-    
+
         return $this;
     }
 
@@ -138,7 +146,7 @@ class Reference
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
@@ -161,7 +169,7 @@ class Reference
     public function setType($type)
     {
         $this->type = $type;
-    
+
         return $this;
     }
 
@@ -184,7 +192,7 @@ class Reference
     public function setUrl($url)
     {
         $this->url = $url;
-    
+
         return $this;
     }
 
@@ -207,7 +215,7 @@ class Reference
     public function setIconName($iconName)
     {
         $this->iconName = $iconName;
-    
+
         return $this;
     }
 
@@ -230,7 +238,7 @@ class Reference
     public function setData($data)
     {
         $this->data = $data;
-    
+
         return $this;
     }
 
@@ -243,7 +251,7 @@ class Reference
     {
         return $this->data;
     }
-    
+
     /**
      * Add customFields
      *
@@ -254,7 +262,7 @@ class Reference
     {
         $customField->setReference($this);
         $this->customFields[] = $customField;
-    
+
         return $this;
     }
 
@@ -283,9 +291,10 @@ class Reference
      *
      * @return \ICAP\ReferenceBundle\Entity\CustomField $customField or null 
      */
-    public function getCustomFieldByKey($fieldKey) {
+    public function getCustomFieldByKey($fieldKey)
+    {
         foreach ($this->getCustomFields() as $customField) {
-            if($customField->getFieldKey() == $fieldKey) {
+            if ($customField->getFieldKey() == $fieldKey) {
 
                 return $customField;
             }
@@ -300,9 +309,10 @@ class Reference
      * @param $fieldKey, $fieldValue
      * @return Reference
      */
-    public function setCustomFieldByKey($fieldKey, $fieldValue) {
+    public function setCustomFieldByKey($fieldKey, $fieldValue)
+    {
         $customField = $this->getCustomFieldByKey($fieldKey);
-        if($customField == null) {
+        if ($customField == null) {
             $customField = new CustomField();
             $customField->setFieldKey($fieldKey);
             $this->addCustomField($customField);
@@ -321,7 +331,7 @@ class Reference
     public function setReferenceBank(\ICAP\ReferenceBundle\Entity\ReferenceBank $referenceBank = null)
     {
         $this->referenceBank = $referenceBank;
-    
+
         return $this;
     }
 

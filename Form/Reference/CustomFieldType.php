@@ -11,9 +11,22 @@ class CustomFieldType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fieldKey', null, array('label_attr' => array('style' => 'display:none'), 'attr' => array('placeholder' => 'key')))
-            ->add('fieldValue', null, array('label_attr' => array('style' => 'display:none'), 'attr' => array('placeholder' => 'value')))
-        ;
+            ->add(
+                'fieldKey',
+                null,
+                array(
+                    'label_attr' => array('style' => 'display:none'),
+                    'attr' => array('placeholder' => 'key')
+                )
+            )
+            ->add(
+                'fieldValue',
+                null,
+                array(
+                    'label_attr' => array('style' => 'display:none'),
+                    'attr' => array('placeholder' => 'value')
+                )
+            );
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

@@ -12,12 +12,12 @@
     </div>
 
     <script type="text/javascript">
-        jQuery(document).ready(function () {
-            jQuery('form[name="icap_reference_choose_type"] > input[type="submit"]').hide();
+        $(document).ready(function () {
+            $('form[name="icap_reference_choose_type"] > input[type="submit"]').hide();
 
-            jQuery('#newReferenceModal-submit').on('click', function() {
+            $('#newReferenceModal-submit').on('click', function () {
                 //I do the "click" on submit button for keep html5 warning
-                jQuery('form[name="icap_reference_choose_type"] > input[type="submit"]').trigger('click');
+                $('form[name="icap_reference_choose_type"] > input[type="submit"]').trigger('click');
             });
         });
     </script>

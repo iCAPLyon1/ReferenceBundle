@@ -34,11 +34,6 @@ class CustomField
      */
     protected $reference;
 
-    public function __toString()
-    {
-        return $this->getFieldKey().': '.$this->getFieldValue();
-    }
-
     /**
      * Get id
      *
@@ -58,14 +53,14 @@ class CustomField
     public function setReference(\ICAP\ReferenceBundle\Entity\Reference $reference = null)
     {
         $this->reference = $reference;
-    
+
         return $this;
     }
 
     /**
      * Get reference
      *
-     * @return \ICAP\ReferenceBundle\Entity\Reference 
+     * @return \ICAP\ReferenceBundle\Entity\Reference
      */
     public function getReference()
     {
@@ -81,7 +76,7 @@ class CustomField
     public function setFieldKey($fieldKey)
     {
         $this->fieldKey = $fieldKey;
-    
+
         return $this;
     }
 
@@ -104,7 +99,7 @@ class CustomField
     public function setFieldValue($fieldValue)
     {
         $this->fieldValue = $fieldValue;
-    
+
         return $this;
     }
 

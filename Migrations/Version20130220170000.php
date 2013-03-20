@@ -45,7 +45,7 @@ class Version20130220170000 extends BundleMigration
             $schema->getTable('claro_resource'), array('id'), array('id'), array("onDelete" => "CASCADE")
         );
     }
- 
+
     /**
      * Creates the icap__referencebundle_reference table
      * @param Doctrine\DBAL\Schema\Schema
@@ -67,7 +67,12 @@ class Version20130220170000 extends BundleMigration
 
         $this->storeTable($table);
         $table->addForeignKeyConstraint(
-            $schema->getTable('icap__referencebundle_referencebank'), array('referencebank_id'), array('id'), array("onDelete" => "CASCADE")
+            $schema->getTable(
+                'icap__referencebundle_referencebank'),
+                array('referencebank_id'),
+                array('id'),
+                array("onDelete" => "CASCADE"
+            )
         );
     }
 

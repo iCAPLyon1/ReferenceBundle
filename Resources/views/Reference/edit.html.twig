@@ -78,17 +78,17 @@
         var $addCustomFieldLink = $('<a href="#" class="add_tag_link btn">{% trans %}Add custom field{% endtrans %}</a>');
         var $newLinkLi = $('<li class="custom_field"></li>').append($addCustomFieldLink);
 
-        jQuery(document).ready(function() {
+        $(document).ready(function () {
             // ajoute un lien de suppression à tous les éléments li de
             // formulaires de tag existants
-            collectionHolder.find('li').each(function() {
+            collectionHolder.find('li').each(function () {
                 addCustomFieldFormDeleteLink($(this));
             });
 
             // ajoute l'ancre « ajouter un tag » et li à la balise ul
             collectionHolder.append($newLinkLi);
 
-            $addCustomFieldLink.on('click', function(e) {
+            $addCustomFieldLink.on('click', function (e) {
                 // empêche le lien de créer un « # » dans l'URL
                 e.preventDefault();
 
@@ -121,7 +121,7 @@
             var $removeFormA = $('<a href="#" class="btn btn-danger">x</a><div class="clear"></div>');
             $tagFormLi.append($removeFormA);
 
-            $removeFormA.on('click', function(e) {
+            $removeFormA.on('click', function (e) {
                 // empêche le lien de créer un « # » dans l'URL
                 e.preventDefault();
 

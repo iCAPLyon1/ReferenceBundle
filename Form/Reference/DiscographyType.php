@@ -15,8 +15,7 @@ class DiscographyType extends AbstractReferenceDataExtractor
             ->add('artist', null, array('required' => false))
             ->add('composer', null, array('required' => false))
             ->add('label', null, array('required' => false))
-            ->add('duration', null, array('required' => false))
-        ;
+            ->add('duration', null, array('required' => false));
     }
 
     public function getName()
@@ -24,23 +23,26 @@ class DiscographyType extends AbstractReferenceDataExtractor
         return 'discography';
     }
 
-    public function extractData(Request $request, $reference) 
+    public function extractData(Request $request, $reference)
     {
         $reference = parent::extractData($request, $reference);
 
         $data = $reference->getData();
-        
+
         $artist = $request->get('artist');
-        if($artist != null)
+        if ($artist != null) {
             $data['artist'] = $artist;    
-        
+        }
+
         $label = $request->get('label');
-        if($label != null)
+        if ($label != null) {
             $data['label'] = $label;
-        
+        }
+
         $releaseDate = $request->get('releaseDate');
-        if($releaseDate != null)
+        if ($releaseDate != null) {
             $data['releaseDate'] = $releaseDate;
+        }
 
         $reference->setData($data);
 

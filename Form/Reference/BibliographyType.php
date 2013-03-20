@@ -16,8 +16,7 @@ class BibliographyType extends AbstractReferenceDataExtractor
             ->add('summary', 'textarea', array('required' => false))
             ->add('isbn', null, array('required' => false))
             ->add('publisher', null, array('required' => false))
-            ->add('pages', null, array('required' => false))
-        ;
+            ->add('pages', null, array('required' => false));
     }
 
     public function getName()
@@ -25,27 +24,31 @@ class BibliographyType extends AbstractReferenceDataExtractor
         return 'bibliography';
     }
 
-    public function extractData(Request $request, $reference) 
+    public function extractData(Request $request, $reference)
     {
         $reference = parent::extractData($request, $reference);
 
         $data = $reference->getData();
-        
+
         $author = $request->get('author');
-        if($author != null)
+        if ($author != null) {
             $data['author'] = $author;
-        
+        }
+
         $publicationDate = $request->get('publicationDate');
-        if($publicationDate != null)
-            $data['publicationDate'] = $publicationDate;    
-        
+        if ($publicationDate != null) {
+            $data['publicationDate'] = $publicationDate;
+        }
+
         $editor = $request->get('editor');
-        if($editor != null)
+        if ($editor != null) {
             $data['editor'] = $editor;
+        }
 
         $isbn = $request->get('isbn');
-        if($isbn != null)
+        if ($isbn != null) {
             $data['isbn'] = $isbn;
+        }
 
         $reference->setData($data);
 
