@@ -14,37 +14,14 @@ use Symfony\Component\Config\FileLocator;
  */
 class ICAPReferenceExtension extends Extension
 {
-    /**
-     * {@inheritDoc}
-     */
-    // public function load(array $configs, ContainerBuilder $container)
-    // {
-    //     $configuration = new Configuration();
-    //     $config = $this->processConfiguration($configuration, $configs);
-
-    //     $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-    //     $loader->load('services.yml');
-
-    //     $container->setParameter('referencesConfiguration', $config);
-    // }
 
     public function load(array $configs, ContainerBuilder $container)
     {
-        // $configuration = new Configuration();
-        // $config = $this->processConfiguration($configuration, $configs);
-
         $locator = new FileLocator(__DIR__ . '/../Resources/config/services');
         $loader = new YamlFileLoader($container, $locator);
         $loader->load('listeners.yml');
 
         $serviceLoader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $serviceLoader->load('services.yml');
-
-        // $configLoader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/referenceConfig'));
-        // $serviceLoader->load('config.yml');
-
-        // $configuration = new Configuration();
-        // $config = $this->processConfiguration($configuration, $configs);
-        // $container->setParameter('referencesConfiguration', $config);
     }
 }
