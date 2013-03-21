@@ -31,9 +31,11 @@ class CustomFieldType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'ICAP\ReferenceBundle\Entity\CustomField',
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'ICAP\ReferenceBundle\Entity\CustomField',
+            )
+        );
     }
 
     public function getName()

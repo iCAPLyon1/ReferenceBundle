@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    "use strict";
+
     var modalNewForm = null;
 
     var newLink = $('a.new-reference');
@@ -7,7 +9,7 @@ $(document).ready(function () {
     newLink.on('click', function (event) {
         console.log('click new reference');
 
-        if(modalNewForm === null) {
+        if (modalNewForm === null) {
             event.preventDefault();
             console.log('newModal not exist');
             $.get(newPath)
@@ -17,7 +19,7 @@ $(document).ready(function () {
                         modalNewForm.remove();
                     }
                 })
-                .done(function(data) {
+                .done(function (data) {
                     console.log('newModal create');
                     $('body').append(data);
                     modalNewForm = $('#newReferenceModal');

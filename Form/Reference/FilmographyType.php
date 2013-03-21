@@ -26,12 +26,12 @@ class FilmographyType extends AbstractReferenceDataExtractor
         return 'filmography';
     }
 
-    public function extractData(Request $request, $reference) 
+    public function extractData(Request $request, $reference)
     {
         $reference = parent::extractData($request, $reference);
 
         $data = $reference->getData();
-        
+
         $actors = $request->get('actors');
         if ($actors != null) {
             $data['actors'] = $actors;

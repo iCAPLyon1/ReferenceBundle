@@ -76,7 +76,7 @@ class ReferenceBank extends AbstractResource
                 $pathArray[] = array('id' => $id, 'name' => $name);
             }
         }
-        
+
         return $pathArray;
     }
 }

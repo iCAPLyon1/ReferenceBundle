@@ -36,7 +36,7 @@ class ReferenceController extends Controller
         }
     }
 
-    protected function getOptions() 
+    protected function getOptions()
     {
         $em = $this->getDoctrine()->getEntityManager();
         $options = $em->getRepository('ICAPReferenceBundle:ReferenceBankOptions')->findAll();
@@ -58,26 +58,26 @@ class ReferenceController extends Controller
             && ($options->getAmazonSecretKey() != null && $options->getAmazonSecretKey() != '')
             && ($options->getAmazonAssociateTag() != null && $options->getAmazonAssociateTag() != '')
             && (
-                $options->getAmazonCountry() != null 
-                && $options->getAmazonCountry() != '' 
+                $options->getAmazonCountry() != null
+                && $options->getAmazonCountry() != ''
                 && in_array(
-                    $options->getAmazonCountry(), 
+                    $options->getAmazonCountry(),
                     array(
-                        'fr', 
-                        'com', 
-                        'co.uk', 
-                        'de', 
-                        'ca', 
-                        'co.jp', 
-                        'it', 
-                        'cn', 
+                        'fr',
+                        'com',
+                        'co.uk',
+                        'de',
+                        'ca',
+                        'co.jp',
+                        'it',
+                        'cn',
                         'es'
                     )
                 )
             );
     }
 
-    protected function getResourceBank($resourceId) 
+    protected function getResourceBank($resourceId)
     {
         $em = $this->getDoctrine()->getEntityManager();
         $referenceBank = $em
@@ -93,7 +93,7 @@ class ReferenceController extends Controller
         return $referenceBank;
     }
 
-    protected function getResource($id) 
+    protected function getResource($id)
     {
         $em = $this->getDoctrine()->getEntityManager();
         $reference = $em
@@ -238,15 +238,17 @@ class ReferenceController extends Controller
             $em->persist($reference);
             $em->flush();
 
-            return $this->redirect($this->generateUrl(
-                'icap_reference_show', 
-                array(
-                    'resourceId' => $referenceBank->getId(),
-                    'id' => $reference->getId()
+            return $this->redirect(
+                $this->generateUrl(
+                    'icap_reference_show',
+                    array(
+                        'resourceId' => $referenceBank->getId(),
+                        'id' => $reference->getId()
+                    )
                 )
-            ));
+            );
         }
-    
+
         return array(
             'referenceBank' => $referenceBank,
             'workspace' => $referenceBank->getWorkspace(),
@@ -273,9 +275,9 @@ class ReferenceController extends Controller
         if ($request->isXMLHttpRequest()) {
             $serviceFormManager = $this->container->get('icap_reference.form_manager');
             $referencesConfiguration = $serviceFormManager->getReferencesConfiguration();
-            
+
             return $this->render(
-                'ICAPReferenceBundle:Reference:newLightModal.html.twig', 
+                'ICAPReferenceBundle:Reference:newLightModal.html.twig',
                 array(
                     'referenceBank' => $referenceBank,
                     'form' => $form->createView(),
@@ -328,15 +330,20 @@ class ReferenceController extends Controller
             $em->persist($reference);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('icap_reference_edit', array(
-                'resourceId' => $referenceBank->getId(), 
-                'id' => $reference->getId()
-            )));
+            return $this->redirect(
+                $this->generateUrl(
+                    'icap_reference_edit',
+                    array(
+                        'resourceId' => $referenceBank->getId(),
+                        'id' => $reference->getId()
+                    )
+                )
+            );
         }
 
         return array(
             'referenceBank' => $referenceBank,
-            'workspace' => $referenceBank->getWorkspace(), 
+            'workspace' => $referenceBank->getWorkspace(),
             'form' => $form->createView()
         );
     }
@@ -362,10 +369,10 @@ class ReferenceController extends Controller
 
         if ($request->isXMLHttpRequest()) {
             return $this->render(
-                'ICAPReferenceBundle:Reference:deleteModal.html.twig', 
+                'ICAPReferenceBundle:Reference:deleteModal.html.twig',
                 array(
                     'referenceBank' => $referenceBank,
-                    'workspace' => $referenceBank->getWorkspace(), 
+                    'workspace' => $referenceBank->getWorkspace(),
                     'reference' => $reference,
                     'form' => $form->createView()
                 )
@@ -374,7 +381,7 @@ class ReferenceController extends Controller
 
         return array(
             'referenceBank' => $referenceBank,
-            'workspace' => $referenceBank->getWorkspace(), 
+            'workspace' => $referenceBank->getWorkspace(),
             'pathArray' => $referenceBank->getPathArray(),
             'reference' => $reference,
             'form' => $form->createView()
@@ -405,17 +412,19 @@ class ReferenceController extends Controller
             $em->remove($reference);
             $em->flush();
 
-            return $this->redirect($this->generateUrl(
-                'icap_reference_list', 
-                array(
-                    'resourceId' => $referenceBank->getId()
+            return $this->redirect(
+                $this->generateUrl(
+                    'icap_reference_list',
+                    array(
+                        'resourceId' => $referenceBank->getId()
+                    )
                 )
-            ));
+            );
         }
-        
+
         return array(
             'referenceBank' => $referenceBank,
-            'workspace' => $referenceBank->getWorkspace(), 
+            'workspace' => $referenceBank->getWorkspace(),
             'pathArray' => $referenceBank->getPathArray(),
             'reference' => $reference,
             'form' => $form->createView()
@@ -442,7 +451,7 @@ class ReferenceController extends Controller
 
         return array(
             'referenceBank' => $referenceBank,
-            'workspace' => $referenceBank->getWorkspace(), 
+            'workspace' => $referenceBank->getWorkspace(),
             'pathArray' => $referenceBank->getPathArray(),
             'reference' => $reference,
             'form' => $form->createView()
@@ -473,15 +482,20 @@ class ReferenceController extends Controller
             $em->persist($reference);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('icap_reference_edit', array(
-                'resourceId' => $referenceBank->getId(), 
-                'id' => $reference->getId()
-            )));
+            return $this->redirect(
+                $this->generateUrl(
+                    'icap_reference_edit',
+                    array(
+                        'resourceId' => $referenceBank->getId(),
+                        'id' => $reference->getId()
+                    )
+                )
+            );
         }
 
         return array(
             'referenceBank' => $referenceBank,
-            'workspace' => $referenceBank->getWorkspace(), 
+            'workspace' => $referenceBank->getWorkspace(),
             'pathArray' => $referenceBank->getPathArray(),
             'id' => $id,
             'form' => $form->createView(),
@@ -518,10 +532,15 @@ class ReferenceController extends Controller
         $em->remove($customField);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('icap_reference_edit', array(
-            'resourceId' => $referenceBank->getId(), 
-            'id' => $referenceId
-        )));
+        return $this->redirect(
+            $this->generateUrl(
+                'icap_reference_edit',
+                array(
+                    'resourceId' => $referenceBank->getId(),
+                    'id' => $referenceId
+                )
+            )
+        );
     }
 
     /**
@@ -574,12 +593,14 @@ class ReferenceController extends Controller
         $search = urlencode($search);
 
         return $this->redirect(
-            $this->generateUrl('icap_reference_external_search', 
-            array(
-                'resourceId' => $resourceId,
-                'id' => $id, 'search' => $search
+            $this->generateUrl(
+                'icap_reference_external_search',
+                array(
+                    'resourceId' => $resourceId,
+                    'id' => $id, 'search' => $search
+                )
             )
-        ));
+        );
     }
 
     /**
@@ -596,7 +617,7 @@ class ReferenceController extends Controller
      * )
      * @Template()
      */
-    public function externalSearchAction($resourceId, $id, $search, $page) 
+    public function externalSearchAction($resourceId, $id, $search, $page)
     {
         if (! $this->isOptionsSet()) {
             throw new NotFoundHttpException();
@@ -648,7 +669,7 @@ class ReferenceController extends Controller
 
         return array(
             'referenceBank' => $referenceBank,
-            'workspace' => $referenceBank->getWorkspace(), 
+            'workspace' => $referenceBank->getWorkspace(),
             'pathArray' => $referenceBank->getPathArray(),
             'reference' => $reference,
             'search' => $search,
@@ -678,15 +699,14 @@ class ReferenceController extends Controller
         $serviceType = $this->get(
             $this
                 ->get('icap_reference.form_manager')
-                ->getServiceName($reference->getType()
-            )
+                ->getServiceName($reference->getType())
         );
         $serviceType->extractData($request, $reference);
         $em->merge($reference);
         $em->flush();
 
         return $this->redirect($this->generateUrl(
-            'icap_reference_edit', 
+            'icap_reference_edit',
             array(
                 'resourceId' => $referenceBank->getId(),
                 'id' => $reference->getId()

@@ -67,12 +67,10 @@ class Version20130220170000 extends BundleMigration
 
         $this->storeTable($table);
         $table->addForeignKeyConstraint(
-            $schema->getTable(
-                'icap__referencebundle_referencebank'),
-                array('referencebank_id'),
-                array('id'),
-                array("onDelete" => "CASCADE"
-            )
+            $schema->getTable('icap__referencebundle_referencebank'),
+            array('referencebank_id'),
+            array('id'),
+            array("onDelete" => "CASCADE")
         );
     }
 
@@ -92,7 +90,10 @@ class Version20130220170000 extends BundleMigration
 
         $this->storeTable($table);
         $table->addForeignKeyConstraint(
-            $schema->getTable('icap__referencebundle_reference'), array('reference_id'), array('id'), array("onDelete" => "CASCADE")
+            $schema->getTable('icap__referencebundle_reference'),
+            array('reference_id'),
+            array('id'),
+            array("onDelete" => "CASCADE")
         );
     }
 

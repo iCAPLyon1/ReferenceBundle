@@ -35,12 +35,16 @@ class ChooseReferenceType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('type', 'choice', array(
-            'choices' => $this->getReferenceTypes(),
-            'preferred_choices' => array('default'),
-            'empty_value' => 'choose a type',
-            'empty_data' => null
-        ));
+        $builder->add(
+            'type',
+            'choice',
+            array(
+                'choices' => $this->getReferenceTypes(),
+                'preferred_choices' => array('default'),
+                'empty_value' => 'choose a type',
+                'empty_data' => null
+            )
+        );
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

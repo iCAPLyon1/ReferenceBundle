@@ -25,7 +25,7 @@ abstract class AbstractReferenceDataExtractor extends AbstractType
 
         $reviewIndex++;
 
-        while($reviewSource != null && $reviewContent != null) {
+        while ($reviewSource != null && $reviewContent != null) {
             $reference->setCustomFieldByKey('Description from '.$reviewSource, $reviewContent);
 
             $reviewSource = $request->get('reviewSource_'.$reviewIndex);

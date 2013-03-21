@@ -17,7 +17,7 @@ class ReferenceType extends AbstractType
             ->add('type', 'hidden')
             ->add('url', 'hidden');
 
-        if($options['dataType']) {
+        if ($options['dataType']) {
             $builder
                 ->add('data', $options['dataType'], array('label_attr' => array('style' => 'display:none')));
         }
@@ -25,10 +25,12 @@ class ReferenceType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'ICAP\ReferenceBundle\Entity\Reference',
-            'dataType' => null,
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'ICAP\ReferenceBundle\Entity\Reference',
+                'dataType' => null,
+            )
+        );
     }
 
     public function getName()

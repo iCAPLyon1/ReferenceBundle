@@ -31,7 +31,7 @@ class DiscographyType extends AbstractReferenceDataExtractor
 
         $artist = $request->get('artist');
         if ($artist != null) {
-            $data['artist'] = $artist;    
+            $data['artist'] = $artist;
         }
 
         $label = $request->get('label');

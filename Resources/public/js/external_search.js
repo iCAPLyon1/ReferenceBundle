@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    "use strict";
+
     var externalSearch = $('#externalSearch');
     externalSearch.removeClass('hide');
     var path = externalSearch.attr('href');

@@ -105,13 +105,16 @@ class AmazonECS
             $browseNode = array('BrowseNode' => $nodeId);
         }
 
-        $params = $this->buildRequestParams('ItemSearch', array_merge(
-            array(
-                'Keywords' => $pattern,
-                'SearchIndex' => $this->requestConfig['category']
-            ),
-            $browseNode
-        ));
+        $params = $this->buildRequestParams(
+            'ItemSearch',
+            array_merge(
+                array(
+                    'Keywords' => $pattern,
+                    'SearchIndex' => $this->requestConfig['category']
+                ),
+                $browseNode
+            )
+        );
 
         return $this->returnData($this->performSoapRequest("ItemSearch", $params));
     }
@@ -127,9 +130,12 @@ class AmazonECS
      */
     public function lookup($asin)
     {
-        $params = $this->buildRequestParams('ItemLookup', array(
-            'ItemId' => $asin,
-        ));
+        $params = $this->buildRequestParams(
+            'ItemLookup',
+            array(
+                'ItemId' => $asin,
+            )
+        );
 
         return $this->returnData(
             $this->performSoapRequest("ItemLookup", $params)
@@ -146,9 +152,12 @@ class AmazonECS
     {
         $this->validateNodeId($nodeId);
 
-        $params = $this->buildRequestParams('BrowseNodeLookup', array(
-            'BrowseNodeId' => $nodeId
-        ));
+        $params = $this->buildRequestParams(
+            'BrowseNodeLookup',
+            array(
+                'BrowseNodeId' => $nodeId
+            )
+        );
 
         return $this->returnData(
             $this->performSoapRequest("BrowseNodeLookup", $params)
@@ -163,9 +172,12 @@ class AmazonECS
      */
     public function similarityLookup($asin)
     {
-        $params = $this->buildRequestParams('SimilarityLookup', array(
-            'ItemId' => $asin
-        ));
+        $params = $this->buildRequestParams(
+            'SimilarityLookup',
+            array(
+                'ItemId' => $asin
+            )
+        );
 
         return $this->returnData(
             $this->performSoapRequest("SimilarityLookup", $params)
@@ -224,7 +236,7 @@ class AmazonECS
      */
     protected function performSoapRequest($function, $params)
     {
-        if (true ===  $this->requestConfig['requestDelay']) {
+        if (true === $this->requestConfig['requestDelay']) {
             sleep(1);
         }
 
@@ -233,11 +245,13 @@ class AmazonECS
             array('exceptions' => 1)
         );
 
-        $soapClient->__setLocation(str_replace(
-            '%%COUNTRY%%',
-            $this->responseConfig['country'],
-            $this->webserviceEndpoint
-        ));
+        $soapClient->__setLocation(
+            str_replace(
+                '%%COUNTRY%%',
+                $this->responseConfig['country'],
+                $this->webserviceEndpoint
+            )
+        );
 
         $soapClient->__setSoapHeaders($this->buildSoapHeader($function));
 
@@ -325,17 +339,16 @@ class AmazonECS
         switch ($this->responseConfig['returnType']) {
             case self::RETURN_TYPE_OBJECT:
                 return $object;
-            break;
 
             case self::RETURN_TYPE_ARRAY:
                 return $this->objectToArray($object);
-            break;
 
             default:
-                throw new \InvalidArgumentException(sprintf(
-                    "Unknwon return type %s", $this->responseConfig['returnType']
-                ));
-            break;
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "Unknwon return type %s", $this->responseConfig['returnType']
+                    )
+                );
         }
     }
 
@@ -385,9 +398,11 @@ class AmazonECS
         }
 
         if (false === is_array($params)) {
-            throw new \InvalidArgumentException(sprintf(
-                "%s is no valid parameter: Use an array with Key => Value Pairs", $params
-            ));
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "%s is no valid parameter: Use an array with Key => Value Pairs", $params
+                )
+            );
         }
 
         $this->responseConfig['optionalParameters'] = $params;
@@ -412,11 +427,13 @@ class AmazonECS
         }
 
         if (false === in_array(strtolower($country), $this->possibleLocations)) {
-            throw new \InvalidArgumentException(sprintf(
-                "Invalid Country-Code: %s! Possible Country-Codes: %s",
-                $country,
-                implode(', ', $this->possibleLocations)
-            ));
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid Country-Code: %s! Possible Country-Codes: %s",
+                    $country,
+                    implode(', ', $this->possibleLocations)
+                )
+            );
         }
 
         $this->responseConfig['country'] = strtolower($country);
@@ -517,10 +534,12 @@ class AmazonECS
     public function page($page)
     {
         if (false === is_numeric($page) || $page <= 0) {
-            throw new \InvalidArgumentException(sprintf(
-                '%s is an invalid page value. It has to be numeric and positive',
-                $page
-            ));
+            throw new \InvalidArgumentException(
+                sprintf(
+                    '%s is an invalid page value. It has to be numeric and positive',
+                    $page
+                )
+            );
         }
 
         $this->responseConfig['optionalParameters'] = array_merge(

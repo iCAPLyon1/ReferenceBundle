@@ -1,9 +1,11 @@
 $(document).ready(function () {
+    "use strict";
+
     var modalDeleteForm = null;
 
     $('a.delete-reference').each(function () {
         var deleteLink = $(this);
-        console.log('deleteLink: '+deleteLink);
+        console.log('deleteLink: ' + deleteLink);
         var deletePath = deleteLink.attr('href');
         console.log(deletePath);
         deleteLink.attr('href', '#deleteReferenceModal').attr('data-toggle', 'modal');
