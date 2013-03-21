@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    "use strict";
+    'use strict';
 
     var externalSearch = $('#externalSearch');
     externalSearch.removeClass('hide');
