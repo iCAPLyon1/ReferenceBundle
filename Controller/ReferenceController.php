@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Claroline\CoreBundle\Library\Resource\ResourceCollection;
 use ICAP\ReferenceBundle\Form\DeleteReferenceType;
 use ICAP\ReferenceBundle\Form\ReferenceBankOptionsType;
 use ICAP\ReferenceBundle\Entity\Reference;
@@ -22,18 +23,22 @@ use Pagerfanta\Exception\NotValidCurrentPageException;
 
 class ReferenceController extends Controller
 {
-    protected function isAllowToEdit($referenceBank)
+    protected function isAllow($referenceBank, $actionName)
     {
-        if (false === $this->get('security.context')->isGranted('EDIT', $referenceBank)) {
+        $collection = new ResourceCollection(array($referenceBank));
+        if (false === $this->get('security.context')->isGranted($actionName, $collection)) {
             throw new AccessDeniedException();
         }
     }
 
+    protected function isAllowToEdit($referenceBank)
+    {
+        $this->isAllow($referenceBank, 'EDIT');
+    }
+
     protected function isAllowToShow($referenceBank)
     {
-        if (false === $this->get('security.context')->isGranted('OPEN', $referenceBank)) {
-            throw new AccessDeniedException();
-        }
+        $this->isAllow($referenceBank, 'OPEN');
     }
 
     protected function getOptions()
@@ -54,7 +59,8 @@ class ReferenceController extends Controller
     protected function isOptionsSet()
     {
         $options = $this->getOptions();
-        return ($options->getAmazonApiKey() != null && $options->getAmazonApiKey() != '')
+
+        return (($options->getAmazonApiKey() != null && $options->getAmazonApiKey() != '')
             && ($options->getAmazonSecretKey() != null && $options->getAmazonSecretKey() != '')
             && ($options->getAmazonAssociateTag() != null && $options->getAmazonAssociateTag() != '')
             && (
@@ -697,21 +703,21 @@ class ReferenceController extends Controller
         $reference = $this->getResource($id);
 
         $serviceType = $this->get(
-            $this
-                ->get('icap_reference.form_manager')
-                ->getServiceName($reference->getType())
+            $this->get('icap_reference.form_manager')->getServiceName($reference->getType())
         );
         $serviceType->extractData($request, $reference);
         $em->merge($reference);
         $em->flush();
 
-        return $this->redirect($this->generateUrl(
-            'icap_reference_edit',
-            array(
-                'resourceId' => $referenceBank->getId(),
-                'id' => $reference->getId()
+        return $this->redirect(
+            $this->generateUrl(
+                'icap_reference_edit',
+                array(
+                    'resourceId' => $referenceBank->getId(),
+                    'id' => $reference->getId()
+                )
             )
-        ));
+        );
     }
 }
  

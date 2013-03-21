@@ -37,7 +37,7 @@ class ReferenceBank extends AbstractResource
      */
     public function addReference(\ICAP\ReferenceBundle\Entity\Reference $reference)
     {
-        $customField->setReferenceBank($this);
+        $reference->setReferenceBank($this);
         $this->references[] = $reference;
 
         return $this;
