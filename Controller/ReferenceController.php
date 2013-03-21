@@ -59,8 +59,7 @@ class ReferenceController extends Controller
     protected function isOptionsSet()
     {
         $options = $this->getOptions();
-
-        return (($options->getAmazonApiKey() != null && $options->getAmazonApiKey() != '')
+        return ($options->getAmazonApiKey() != null && $options->getAmazonApiKey() != '')
             && ($options->getAmazonSecretKey() != null && $options->getAmazonSecretKey() != '')
             && ($options->getAmazonAssociateTag() != null && $options->getAmazonAssociateTag() != '')
             && (
