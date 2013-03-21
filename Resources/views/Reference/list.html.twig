@@ -4,14 +4,18 @@
 {% endblock %}
 
 {% block reference_content %}
-    <div class="container-fluid">
+    <div class="container-fluid reference-content">
         <header>
             <div class="row-fluid">
                 <div class="span2">
-                    <a href="{{ path('icap_reference_new_light', { 'resourceId': referenceBank.id }) }}" class="new-reference btn btn-primary">
-                        <i class="icon-bookmark icon-white"></i> 
-                        {% trans %}New{% endtrans %}
-                    </a>
+                    {#
+                    #}
+                    {% if is_granted('EDIT', resourceCollection) %}
+                        <a href="{{ path('icap_reference_new_light', { 'resourceId': referenceBank.id }) }}" class="new-reference btn btn-primary">
+                            <i class="icon-bookmark icon-white"></i> 
+                            {% trans %}New{% endtrans %}
+                        </a>
+                    {% endif %}
                 </div>
                 <div class="span10 text-right">
                     {% if pager.haveToPaginate %}
@@ -49,7 +53,7 @@
                                 {% include "ICAPReferenceBundle:Reference:listDetailDefault.html.twig" %}
                             {% endif %}
                         </div>
-                        {% if is_granted('EDIT', reference) %}
+                        {% if is_granted('EDIT', resourceCollection) %}
                             <div class="span4 btn-group text-right">
                                 <a href="{{ path('icap_reference_edit', { 'resourceId': referenceBank.id, 'id': reference.id }) }}" class="btn btn-primary">
                                     <i class="icon-edit"></i> {% trans %}Edit{% endtrans %}
@@ -70,10 +74,12 @@
             <header>
                 <div class="row-fluid">
                     <div class="span2">
-                        <a href="{{ path('icap_reference_new_light', { 'resourceId': referenceBank.id }) }}" class="new-reference btn btn-primary">
-                            <i class="icon-bookmark icon-white"></i> 
-                            {% trans %}New{% endtrans %}
-                        </a>
+                        {% if is_granted('EDIT', resourceCollection) %}
+                            <a href="{{ path('icap_reference_new_light', { 'resourceId': referenceBank.id }) }}" class="new-reference btn btn-primary">
+                                <i class="icon-bookmark icon-white"></i> 
+                                {% trans %}New{% endtrans %}
+                            </a>
+                        {% endif %}
                     </div>
                     <div class="span10 text-right">
                         {% if pager.haveToPaginate %}

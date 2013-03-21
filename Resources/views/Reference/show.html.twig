@@ -24,7 +24,7 @@
                 </a>
                 <p><small>{{ reference.description }}</small></p>  
             </div>
-            {% if is_granted('EDIT', reference) %}
+            {% if is_granted('EDIT', resourceCollection) %}
                 <div class="span4 btn-group text-right">
                     <a href="{{ path('icap_reference_edit', { 'resourceId': referenceBank.id, 'id': reference.id }) }}" class="btn btn-primary">
                         <i class="icon-edit"></i> {% trans %}Edit{% endtrans %}

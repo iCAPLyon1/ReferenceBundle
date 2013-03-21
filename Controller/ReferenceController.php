@@ -153,7 +153,8 @@ class ReferenceController extends Controller
             'pager' => $pager,
             'workspace' => $referenceBank->getWorkspace(),
             'pathArray' => $referenceBank->getPathArray(),
-            'referenceBank' => $referenceBank
+            'referenceBank' => $referenceBank,
+            'resourceCollection' => new ResourceCollection(array($referenceBank))
         );
     }
 
@@ -174,7 +175,8 @@ class ReferenceController extends Controller
             'referenceBank' => $referenceBank,
             'workspace' => $referenceBank->getWorkspace(),
             'pathArray' => $referenceBank->getPathArray(),
-            'reference' => $reference
+            'reference' => $reference,
+            'resourceCollection' => new ResourceCollection(array($referenceBank))
         );
     }
 
