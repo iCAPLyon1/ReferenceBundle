@@ -7,6 +7,7 @@ use Claroline\CoreBundle\Library\Event\CreateFormResourceEvent;
 use Claroline\CoreBundle\Library\Event\CreateResourceEvent;
 use Claroline\CoreBundle\Library\Event\DeleteResourceEvent;
 use Claroline\CoreBundle\Library\Event\OpenResourceEvent;
+use Claroline\CoreBundle\Library\Event\CopyResourceEvent;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -15,6 +16,8 @@ use Symfony\Component\HttpFoundation\Response;
 use ICAP\ReferenceBundle\Form\ReferenceBankType;
 use ICAP\ReferenceBundle\Form\ReferenceBankOptionsType;
 use ICAP\ReferenceBundle\Entity\ReferenceBank;
+use ICAP\ReferenceBundle\Entity\Reference;
+use ICAP\ReferenceBundle\Entity\CustomField;
 use ICAP\ReferenceBundle\Entity\ReferenceBankOptions;
 
 
@@ -99,6 +102,41 @@ class ReferenceBankListener extends ContainerAware
         );
         $response = new Response($content);
         $event->setResponse($response);
+        $event->stopPropagation();
+    }
+
+    public function onCopy(CopyResourceEvent $event)
+    {
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $resource = $event->getResource();
+        $newReferenceBank = new ReferenceBank();
+        $newReferenceBank->setName($resource->getName());
+        $oldReferences = $resource->getReferences();
+
+        foreach ($oldReferences as $oldReference) {
+            $newReference = new Reference();
+            $newReference->setTitle($oldReference->getTitle());
+            $newReference->setImageUrl($oldReference->getImageUrl());
+            $newReference->setDescription($oldReference->getDescription());
+            $newReference->setType($oldReference->getType());
+            $newReference->setUrl($oldReference->getUrl());
+            $newReference->setIconName($oldReference->getIconName());
+            $newReference->setData($oldReference->getData());
+
+            $newReferenceBank->addReference($newReference);
+
+            $oldCustomFields = $oldReference->getCustomFields();
+            foreach ($oldCustomFields as $oldCustomField) {
+                $newCustomField = new CustomField();
+                $newCustomField->setFieldKey($oldCustomField->getFieldKey());
+                $newCustomField->setFieldValue($oldCustomField->getFieldValue());
+
+                $newReference->addCustomField($newCustomField);
+            }
+        }
+        $em->persist($newReferenceBank);
+
+        $event->setCopy($newReferenceBank);
         $event->stopPropagation();
     }
 }

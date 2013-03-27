@@ -119,7 +119,7 @@
         }
 
         function addCustomFieldFormDeleteLink($tagFormLi) {
-            var $removeFormA = $('<a href="#" class="btn btn-danger">x</a><div class="clear"></div>');
+            var $removeFormA = $('<a href="#" class="btn btn-danger"><strong>&times;</strong></a><div class="clear"></div>');
             $tagFormLi.append($removeFormA);
 
             $removeFormA.on('click', function (e) {

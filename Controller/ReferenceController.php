@@ -663,7 +663,7 @@ class ReferenceController extends Controller
         $client->returnType(AmazonECS::RETURN_TYPE_ARRAY);
         $client  = $client
             ->category($searchCategory)
-            ->responseGroup('Large,Images,EditorialReview');
+            ->responseGroup('Large');
 
         $adapter = new AmazonECSAdapter($client, $decodedSearch);
         $pager   = new PagerFanta($adapter);

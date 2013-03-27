@@ -15,7 +15,7 @@ class ReferenceBank extends AbstractResource
      * @ORM\OneToMany(
      *      targetEntity="ICAP\ReferenceBundle\Entity\Reference",
      *      mappedBy="referenceBank",
-     *      cascade={"persist"},
+     *      cascade={"all"},
      *      orphanRemoval=true
      * )
      */
