@@ -1,0 +1,25 @@
+{% set doer %}
+    {% include 'ClarolineCoreBundle:Log:view_list_item_doer.html.twig' %}
+{% endset %}
+
+{% set reference %}
+    {% include 'ICAPReferenceBundle::log_list_item_reference.html.twig' %}
+{% endset %}
+
+{% set resource %}
+    {% include 'ClarolineCoreBundle:Log:view_list_item_resource.html.twig' %}
+{% endset %}
+
+{% if log.getChildType == 'icap_reference' %}
+    {% if log.getChildAction == 'child_action_create' %}
+        {{ 'referenceCreate'|trans({'%doer%': doer, '%reference%': reference, '%resource%': resource})|raw }}
+    {% elseif log.getChildAction == 'child_action_delete' %}
+        {{ 'referenceDelete'|trans({'%doer%': doer, '%reference%': reference, '%resource%': resource})|raw }}
+    {% elseif log.getChildAction == 'child_action_update' %}
+        {{ 'referenceUpdate'|trans({'%doer%': doer, '%reference%': reference, '%resource%': resource})|raw }}
+    {% else %}
+        no default text
+    {% endif %}
+{% else %}
+    no default text
+{% endif %}

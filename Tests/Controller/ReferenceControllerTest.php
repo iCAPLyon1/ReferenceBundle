@@ -192,9 +192,6 @@ class ReferenceControllerTest extends FunctionalTestCase
         $this->assertEquals(0, count($referenceBank->getReferences()));
     }
 
-    /**
-     * @group debug
-     */
     public function testCustomField()
     {
         $this->loadFixture(new LoadOptionsData());

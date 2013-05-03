@@ -1,0 +1,11 @@
+{% if log.getDetails().child.icap_reference is defined %}
+    <strong>
+        {{ log.getDetails().child.icap_reference.title }}
+        {% if log.getDetails().child.icap_reference is defined and log.getDetails().child.icap_reference.type == 'default' %}
+            {% set referenceType = 'reference' %}
+        {% else %}
+            {% set referenceType = log.getDetails().child.icap_reference.type %}
+        {% endif %}
+        ({{ referenceType|trans }})
+    </strong>
+{% endif %}
