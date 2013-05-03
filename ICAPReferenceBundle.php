@@ -10,10 +10,4 @@ class ICAPReferenceBundle extends PluginBundle
     {
         return "reference";
     }
-
-    // public function getNamespace()
-    // {
-    //     return "plugin_icap_reference";
-    // }
-
 }

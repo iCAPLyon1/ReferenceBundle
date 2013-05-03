@@ -11,7 +11,7 @@
 
 {% block reference_content %}
     <div class="container-fluid container-reference">
-        <form method="POST" action="{{ path('icap_reference_update', { 'resourceId': referenceBank.id, 'id': reference.id }) }}">
+        <form id="editReferenceForm" method="POST" action="{{ path('icap_reference_update', { 'resourceId': referenceBank.id, 'id': reference.id }) }}">
             <div class="row-fluid">
                 <div class="span2">
                     <div class="portrate">
@@ -59,7 +59,7 @@
                     </ul>
                     {{ form_row(form.customFields,  {'label_attr': {'style': 'display: none;'}}) }}
                     {{ form_rest(form) }}
-                    <input type="submit" value="{% trans %}Save reference{% endtrans %}" class="btn btn-primary"/>
+                    <input id="editReferenceSubmit" type="submit" value="{% trans %}Save reference{% endtrans %}" class="btn btn-primary"/>
                 </div>
             </div>
         </form>

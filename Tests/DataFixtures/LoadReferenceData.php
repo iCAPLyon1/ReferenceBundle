@@ -61,8 +61,10 @@ class LoadReferenceData extends LoggableFixture implements ContainerAwareInterfa
 
         $types = $referencesConfiguration['types'];
         $dataTypes = array();
+        $iconNames = array();
         foreach ($types as $type) {
             $dataTypes[] = $type['dataType'];
+            $iconNames[] = $type['icon'];
         }
 
         $maxOffset = count($dataTypes);
@@ -76,13 +78,18 @@ class LoadReferenceData extends LoggableFixture implements ContainerAwareInterfa
             $reference = new Reference();
             $reference->setTitle($title);
             $reference->setDescription($description);
-            $dataType = $dataTypes[rand(0, $maxOffset)];
-            $reference->setType($dataType);
+
+            $typeNumber = rand(0, $maxOffset);
+            $reference->setIconName($iconNames[$typeNumber]);
+            $reference->setType($dataTypes[$typeNumber]);
+            
             $this->log("reference $title created");
             $referenceBank->addReference($reference);
 
             $manager->persist($reference);
             $manager->flush();
+
+            $this->addReference("reference/{$i}", $reference);
         }
         $manager->flush();
 

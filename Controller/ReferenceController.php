@@ -20,9 +20,13 @@ use ICAP\ReferenceBundle\Entity\CustomField;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\Exception\NotValidCurrentPageException;
+use Claroline\CoreBundle\Library\Event\LogResourceReadEvent;
+use Claroline\CoreBundle\Library\Event\LogResourceChildUpdateEvent;
 
 class ReferenceController extends Controller
 {
+    const REFERENCE_CHILD_TYPE = 'icap_reference';
+
     protected function isAllow($referenceBank, $actionName)
     {
         $collection = new ResourceCollection(array($referenceBank));
@@ -83,33 +87,50 @@ class ReferenceController extends Controller
             );
     }
 
-    protected function getResourceBank($resourceId)
+    protected function getReferenceBank($referenceBankId)
     {
         $em = $this->getDoctrine()->getEntityManager();
         $referenceBank = $em
             ->getRepository('ICAPReferenceBundle:ReferenceBank')
-            ->findOneBy(array('id' => $resourceId));
+            ->findOneBy(array('id' => $referenceBankId));
 
         if ($referenceBank == null) {
             throw new NotFoundHttpException();
         }
 
-        $this->isAllowToShow($referenceBank);
+        //$this->isAllowToShow($referenceBank);
 
         return $referenceBank;
     }
 
-    protected function getResource($id)
+    protected function getReference($referenceId)
     {
         $em = $this->getDoctrine()->getEntityManager();
         $reference = $em
             ->getRepository('ICAPReferenceBundle:Reference')
-            ->findOneBy(array('id' => $id ));
+            ->findOneBy(array('id' => $referenceId ));
         if (!$reference) {
             throw $this->createNotFoundException('The reference does not exist');
         }
 
         return $reference;
+    }
+
+    protected function containsCustomField($customField, $customFields)
+    {
+        foreach ($customFields as $current) {
+            if ($customField->getId() == $current->getId()) {
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    protected function customFieldToArray($customField)
+    {
+        return array('fieldKey' => $customField->getFieldKey(), 'fieldValue' => $customField->getFieldValue());
     }
 
     /**
@@ -129,7 +150,7 @@ class ReferenceController extends Controller
     public function listAction($resourceId, $page)
     {
         $em = $this->getDoctrine()->getEntityManager();
-        $referenceBank = $this->getResourceBank($resourceId);
+        $referenceBank = $this->getReferenceBank($resourceId);
         $repository = $em->getRepository('ICAPReferenceBundle:Reference');
 
         $query = $repository
@@ -150,6 +171,9 @@ class ReferenceController extends Controller
             throw new NotFoundHttpException();
         }
 
+        $log = new LogResourceReadEvent($referenceBank);
+        $this->get('event_dispatcher')->dispatch('log', $log);
+
         return array(
             'pager' => $pager,
             'workspace' => $referenceBank->getWorkspace(),
@@ -169,8 +193,11 @@ class ReferenceController extends Controller
      */
     public function showAction($resourceId, $id)
     {
-        $referenceBank = $this->getResourceBank($resourceId);
-        $reference = $this->getResource($id);
+        $referenceBank = $this->getReferenceBank($resourceId);
+        $reference = $this->getReference($id);
+
+        $log = new LogResourceReadEvent($referenceBank);
+        $this->get('event_dispatcher')->dispatch('log', $log);
 
         return array(
             'referenceBank' => $referenceBank,
@@ -191,10 +218,10 @@ class ReferenceController extends Controller
      */
     public function editAction($resourceId, $id)
     {
-        $referenceBank = $this->getResourceBank($resourceId);
+        $referenceBank = $this->getReferenceBank($resourceId);
         $this->isAllowToEdit($referenceBank);
 
-        $reference = $this->getResource($id);
+        $reference = $this->getReference($id);
 
         $form = $this->get('icap_reference.form_manager')->getEditForm(
             $reference->getType(),
@@ -211,6 +238,9 @@ class ReferenceController extends Controller
             $searchCategory = null;
         }
 
+        $log = new LogResourceReadEvent($referenceBank);
+        $this->get('event_dispatcher')->dispatch('log', $log);
+
         return array(
             'referenceBank' => $referenceBank,
             'workspace' => $referenceBank->getWorkspace(),
@@ -220,6 +250,7 @@ class ReferenceController extends Controller
             'searchCategory' => $searchCategory
         );
     }
+
     /**
      * @Route(
      *      "/{resourceId}/update/{id}",
@@ -230,10 +261,10 @@ class ReferenceController extends Controller
      */
     public function updateAction(Request $request, $resourceId, $id)
     {
-        $referenceBank = $this->getResourceBank($resourceId);
+        $referenceBank = $this->getReferenceBank($resourceId);
         $this->isAllowToEdit($referenceBank);
 
-        $reference = $this->getResource($id);
+        $reference = $this->getReference($id);
 
         $form = $this->get('icap_reference.form_manager')->getEditForm(
             $reference->getType(),
@@ -245,6 +276,16 @@ class ReferenceController extends Controller
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($reference);
             $em->flush();
+
+            $details = array(
+                'icap_reference' => array(
+                    'id' => $id,
+                    'title' => $reference->getTitle(),
+                    'type' => $reference->getType()
+                )
+            );
+            $log = new LogResourceChildUpdateEvent($referenceBank, self::REFERENCE_CHILD_TYPE, LogResourceChildUpdateEvent::CHILD_ACTION_UPDATE, $details);
+            $this->get('event_dispatcher')->dispatch('log', $log);
 
             return $this->redirect(
                 $this->generateUrl(
@@ -275,7 +316,7 @@ class ReferenceController extends Controller
      */
     public function newLightAction(Request $request, $resourceId)
     {
-        $referenceBank = $this->getResourceBank($resourceId);
+        $referenceBank = $this->getReferenceBank($resourceId);
         $this->isAllowToEdit($referenceBank);
 
         $form = $this->createForm($this->get('icap_reference.choose_type'));
@@ -293,6 +334,9 @@ class ReferenceController extends Controller
                 )
             );
         }
+
+        $log = new LogResourceReadEvent($referenceBank);
+        $this->get('event_dispatcher')->dispatch('log', $log);
 
         return array(
             'referenceBank' => $referenceBank,
@@ -313,7 +357,7 @@ class ReferenceController extends Controller
     public function createLightAction(Request $request, $resourceId)
     {
         $em = $this->getDoctrine()->getEntityManager();
-        $referenceBank = $this->getResourceBank($resourceId);
+        $referenceBank = $this->getReferenceBank($resourceId);
         $this->isAllowToEdit($referenceBank);
 
         $form = $this->createForm($this->get('icap_reference.choose_type'));
@@ -337,6 +381,16 @@ class ReferenceController extends Controller
 
             $em->persist($reference);
             $em->flush();
+
+            $details = array(
+                'icap_reference' => array(
+                    'id' => $reference->getId(),
+                    'title' => $reference->getTitle(),
+                    'type' => $reference->getType()
+                )
+            );
+            $log = new LogResourceChildUpdateEvent($referenceBank, self::REFERENCE_CHILD_TYPE, LogResourceChildUpdateEvent::CHILD_ACTION_CREATE, $details);
+            $this->get('event_dispatcher')->dispatch('log', $log);
 
             return $this->redirect(
                 $this->generateUrl(
@@ -367,10 +421,10 @@ class ReferenceController extends Controller
     public function deleteAction(Request $request, $resourceId, $id)
     {
         $em = $this->getDoctrine()->getEntityManager();
-        $referenceBank = $this->getResourceBank($resourceId);
+        $referenceBank = $this->getReferenceBank($resourceId);
         $this->isAllowToEdit($referenceBank);
 
-        $reference = $this->getResource($id);
+        $reference = $this->getReference($id);
 
         $form = $this->createForm(new DeleteReferenceType(), $reference);
         $form->bind($request);
@@ -407,18 +461,28 @@ class ReferenceController extends Controller
      */
     public function removeAction(Request $request, $resourceId, $id)
     {
-        $referenceBank = $this->getResourceBank($resourceId);
+        $referenceBank = $this->getReferenceBank($resourceId);
         $this->isAllowToEdit($referenceBank);
 
         $form = $this->createForm(new DeleteReferenceType());
         $form->bind($request);
-        $reference = $this->getResource($id);
+        $reference = $this->getReference($id);
 
         //Check for csrf
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
             $em->remove($reference);
             $em->flush();
+
+            $details = array(
+                'icap_reference' => array(
+                    'id' => $id,
+                    'title' => $reference->getTitle(),
+                    'type' => $reference->getType()
+                )
+            );
+            $log = new LogResourceChildUpdateEvent($referenceBank, self::REFERENCE_CHILD_TYPE, LogResourceChildUpdateEvent::CHILD_ACTION_DELETE, $details);
+            $this->get('event_dispatcher')->dispatch('log', $log);
 
             return $this->redirect(
                 $this->generateUrl(
@@ -449,13 +513,13 @@ class ReferenceController extends Controller
      */
     public function newCustomFieldAction(Request $request, $resourceId, $id)
     {
-        $referenceBank = $this->getResourceBank($resourceId);
+        $referenceBank = $this->getReferenceBank($resourceId);
         $this->isAllowToEdit($referenceBank);
 
         $form = $this
             ->get('icap_reference.form_manager')
             ->getCustomForm(new CustomField());
-        $reference = $this->getResource($id);
+        $reference = $this->getReference($id);
 
         return array(
             'referenceBank' => $referenceBank,
@@ -475,10 +539,10 @@ class ReferenceController extends Controller
      */
     public function createCustomFieldAction(Request $request, $resourceId, $id)
     {
-        $referenceBank = $this->getResourceBank($resourceId);
+        $referenceBank = $this->getReferenceBank($resourceId);
         $this->isAllowToEdit($referenceBank);
 
-        $reference = $this->getResource($id);
+        $reference = $this->getReference($id);
 
         $customField = new CustomField();
         $form = $this->get('icap_reference.form_manager')->getCustomForm($customField);
@@ -501,6 +565,9 @@ class ReferenceController extends Controller
             );
         }
 
+        $log = new LogResourceReadEvent($referenceBank);
+        $this->get('event_dispatcher')->dispatch('log', $log);
+
         return array(
             'referenceBank' => $referenceBank,
             'workspace' => $referenceBank->getWorkspace(),
@@ -521,7 +588,7 @@ class ReferenceController extends Controller
      */
     public function deleteCustomFieldAction(Request $request, $resourceId, $id)
     {
-        $referenceBank = $this->getResourceBank($resourceId);
+        $referenceBank = $this->getReferenceBank($resourceId);
         $this->isAllowToEdit($referenceBank);
 
         $em = $this->getDoctrine()->getManager();
@@ -633,10 +700,10 @@ class ReferenceController extends Controller
 
         $decodedSearch = urldecode($search);
 
-        $referenceBank = $this->getResourceBank($resourceId);
+        $referenceBank = $this->getReferenceBank($resourceId);
         $this->isAllowToEdit($referenceBank);
 
-        $reference = $this->getResource($id);
+        $reference = $this->getReference($id);
 
         $referencesConfiguration = $this
             ->get('icap_reference.form_manager')
@@ -699,10 +766,10 @@ class ReferenceController extends Controller
     public function copyExternalSearchAction(Request $request, $resourceId, $id)
     {
         $em = $this->getDoctrine()->getEntityManager();
-        $referenceBank = $this->getResourceBank($resourceId);
+        $referenceBank = $this->getReferenceBank($resourceId);
         $this->isAllowToEdit($referenceBank);
 
-        $reference = $this->getResource($id);
+        $reference = $this->getReference($id);
 
         $serviceType = $this->get(
             $this->get('icap_reference.form_manager')->getServiceName($reference->getType())

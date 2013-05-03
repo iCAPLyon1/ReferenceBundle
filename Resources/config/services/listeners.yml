@@ -10,4 +10,6 @@ services:
           #- { name: kernel.event_listener, event: export_icap_referencebank, method: onExport }
           - { name: kernel.event_listener, event: copy_icap_referencebank, method: onCopy }
           - { name: kernel.event_listener, event: open_icap_referencebank, method: onOpen }
+          - { name: kernel.event_listener, event: create_log_list_item_icap_referencebank, method: onCreateLogListItem }
+          - { name: kernel.event_listener, event: create_log_details_icap_referencebank, method: onCreateLogDetails }
           - { name: kernel.event_listener, event: plugin_options_icapreference, method: onAdministrate }

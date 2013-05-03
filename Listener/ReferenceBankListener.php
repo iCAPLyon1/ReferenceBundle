@@ -8,6 +8,7 @@ use Claroline\CoreBundle\Library\Event\CreateResourceEvent;
 use Claroline\CoreBundle\Library\Event\DeleteResourceEvent;
 use Claroline\CoreBundle\Library\Event\OpenResourceEvent;
 use Claroline\CoreBundle\Library\Event\CopyResourceEvent;
+use Claroline\CoreBundle\Library\Event\LogCreateDelegateViewEvent;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -31,6 +32,33 @@ class ReferenceBankListener extends ContainerAware
             array(
                 'form' => $form->createView(),
                 'resourceType' => 'icap_referencebank'
+            )
+        );
+
+        $event->setResponseContent($content);
+        $event->stopPropagation();
+    }
+
+    public function onCreateLogListItem(LogCreateDelegateViewEvent $event)
+    {
+        $content = $this->container->get('templating')->render(
+            'ICAPReferenceBundle::log_list_item.html.twig',
+            array('log' => $event->getLog())
+        );
+
+        $event->setResponseContent($content);
+        $event->stopPropagation();
+    }
+    public function onCreateLogDetails(LogCreateDelegateViewEvent $event)
+    {
+        $content = $this->container->get('templating')->render(
+            'ICAPReferenceBundle::log_details.html.twig',
+            array(
+                'log' => $event->getLog(),
+                'listItemView' => $this->container->get('templating')->render(
+                    'ICAPReferenceBundle::log_list_item.html.twig',
+                    array('log' => $event->getLog())
+                )
             )
         );
 
