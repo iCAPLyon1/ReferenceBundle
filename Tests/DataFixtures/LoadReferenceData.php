@@ -82,7 +82,7 @@ class LoadReferenceData extends LoggableFixture implements ContainerAwareInterfa
             $typeNumber = rand(0, $maxOffset);
             $reference->setIconName($iconNames[$typeNumber]);
             $reference->setType($dataTypes[$typeNumber]);
-            
+
             $this->log("reference $title created");
             $referenceBank->addReference($reference);
 

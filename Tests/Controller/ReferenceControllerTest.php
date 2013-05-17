@@ -61,7 +61,10 @@ class ReferenceControllerTest extends FunctionalTestCase
 
         $this->assertTrue($this->client->getResponse()->isSuccessful());
         $this->assertGreaterThan(0, $crawler->filter('div.section-content')->count());
-        $this->assertEquals('/bundles/icapreference/images/reference_book.png', $crawler->filter('img.img-polaroid')->first()->attr('src'));
+        $this->assertEquals(
+            '/bundles/icapreference/images/reference_book.png',
+            $crawler->filter('img.img-polaroid')->first()->attr('src')
+        );
         $this->assertEquals(1, $crawler->filter('form#editReferenceForm')->count());
     }
 
@@ -86,7 +89,10 @@ class ReferenceControllerTest extends FunctionalTestCase
 
         $this->assertTrue($this->client->getResponse()->isSuccessful());
         $this->assertGreaterThan(0, $crawler->filter('div.section-content')->count());
-        $this->assertEquals('/bundles/icapreference/images/reference_disc.png', $crawler->filter('img.img-polaroid')->first()->attr('src'));
+        $this->assertEquals(
+            '/bundles/icapreference/images/reference_disc.png',
+            $crawler->filter('img.img-polaroid')->first()->attr('src')
+        );
         $this->assertEquals(1, $crawler->filter('form#editReferenceForm')->count());
     }
 
@@ -111,7 +117,10 @@ class ReferenceControllerTest extends FunctionalTestCase
 
         $this->assertTrue($this->client->getResponse()->isSuccessful());
         $this->assertGreaterThan(0, $crawler->filter('div.section-content')->count());
-        $this->assertEquals('/bundles/icapreference/images/reference_film.png', $crawler->filter('img.img-polaroid')->first()->attr('src'));
+        $this->assertEquals(
+            '/bundles/icapreference/images/reference_film.png',
+            $crawler->filter('img.img-polaroid')->first()->attr('src')
+        );
         $this->assertEquals(1, $crawler->filter('form#editReferenceForm')->count());
     }
 
@@ -136,7 +145,10 @@ class ReferenceControllerTest extends FunctionalTestCase
 
         $this->assertTrue($this->client->getResponse()->isSuccessful());
         $this->assertGreaterThan(0, $crawler->filter('div.section-content')->count());
-        $this->assertEquals('/bundles/icapreference/images/reference_default.png', $crawler->filter('img.img-polaroid')->first()->attr('src'));
+        $this->assertEquals(
+            '/bundles/icapreference/images/reference_default.png',
+            $crawler->filter('img.img-polaroid')->first()->attr('src')
+        );
         $this->assertEquals(1, $crawler->filter('form#editReferenceForm')->count());
     }
 
@@ -215,8 +227,20 @@ class ReferenceControllerTest extends FunctionalTestCase
         $crawler = $this->client->submit($form);
 
         $this->assertTrue($this->client->getResponse()->isSuccessful());
-        $this->assertRegExp('/new key/', $crawler->filter('#icap_referencebundle_editreferencetype_customFields_0_fieldKey')->first()->attr('value'));
-        $this->assertRegExp('/new value/', $crawler->filter('#icap_referencebundle_editreferencetype_customFields_0_fieldValue')->first()->text());
+        $this->assertRegExp(
+            '/new key/',
+            $crawler
+                ->filter('#icap_referencebundle_editreferencetype_customFields_0_fieldKey')
+                ->first()
+                ->attr('value')
+        );
+        $this->assertRegExp(
+            '/new value/',
+            $crawler
+                ->filter('#icap_referencebundle_editreferencetype_customFields_0_fieldValue')
+                ->first()
+                ->text()
+        );
 
         $this->em->refresh($reference);
         $this->assertEquals(1, count($reference->getCustomFields()));

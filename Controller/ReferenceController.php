@@ -389,7 +389,12 @@ class ReferenceController extends Controller
                     'type' => $reference->getType()
                 )
             );
-            $log = new LogResourceChildUpdateEvent($referenceBank, self::REFERENCE_CHILD_TYPE, LogResourceChildUpdateEvent::CHILD_ACTION_CREATE, $details);
+            $log = new LogResourceChildUpdateEvent(
+                $referenceBank,
+                self::REFERENCE_CHILD_TYPE,
+                LogResourceChildUpdateEvent::CHILD_ACTION_CREATE,
+                $details
+            );
             $this->get('event_dispatcher')->dispatch('log', $log);
 
             return $this->redirect(
@@ -481,7 +486,12 @@ class ReferenceController extends Controller
                     'type' => $reference->getType()
                 )
             );
-            $log = new LogResourceChildUpdateEvent($referenceBank, self::REFERENCE_CHILD_TYPE, LogResourceChildUpdateEvent::CHILD_ACTION_DELETE, $details);
+            $log = new LogResourceChildUpdateEvent(
+                $referenceBank,
+                self::REFERENCE_CHILD_TYPE,
+                LogResourceChildUpdateEvent::CHILD_ACTION_DELETE,
+                $details
+            );
             $this->get('event_dispatcher')->dispatch('log', $log);
 
             return $this->redirect(
