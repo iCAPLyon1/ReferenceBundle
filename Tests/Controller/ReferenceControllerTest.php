@@ -8,23 +8,37 @@ use ICAP\ReferenceBundle\DataFixtures\LoadOptionsData;
 
 class ReferenceControllerTest extends FunctionalTestCase
 {
+    private $logRepository;
+
     public function setUp()
     {
         parent::setUp();
         $this->loadPlatformRoleData();
         $this->loadUserData(array('user' => 'user', 'ws_creator' => 'ws_creator', 'admin' => 'admin'));
         $this->client->followRedirects();
+        $this->logRepository = $this->em->getRepository('ClarolineCoreBundle:Logger\Log');
     }
 
     public function testWrongReferenceBankURL()
     {
+        $now = new \DateTime();
+
         $crawler = $this->client->request('GET', '/reference');
 
         $this->assertGreaterThan(0, $crawler->filter('html:contains("404")')->count());
+
+        $logs = $this->logRepository->findActionAfterDate(
+            'resource_read',
+            $now,
+            $this->getUser('ws_creator')->getId()
+        );
+        $this->assertEquals(0, count($logs));
     }
 
     public function testEmptyWithAdminButtonsReferenceBank()
     {
+        $now = new \DateTime();
+
         $this->loadFixture(new LoadOptionsData());
         $this->loadFixture(new LoadReferenceData('test', 'ws_creator', 0));
         $this->logUser($this->getUser('ws_creator'));
@@ -38,10 +52,20 @@ class ReferenceControllerTest extends FunctionalTestCase
         $this->assertGreaterThan(0, $crawler->filter('div.section-content')->count());
         $this->assertGreaterThan(0, $crawler->filter('div.reference-content')->count());
         $this->assertGreaterThan(0, $crawler->filter('a.new-reference')->count());
+
+        $logs = $this->logRepository->findActionAfterDate(
+            'resource_read',
+            $now,
+            $this->getUser('ws_creator')->getId(),
+            $resourceId
+        );
+        $this->assertEquals(1, count($logs));
     }
 
     public function testSuccessBibliographyCreation()
     {
+        $now = new \DateTime();
+
         $this->loadFixture(new LoadOptionsData());
         $this->loadFixture(new LoadReferenceData('test', 'ws_creator', 0));
         $this->logUser($this->getUser('ws_creator'));
@@ -66,10 +90,28 @@ class ReferenceControllerTest extends FunctionalTestCase
             $crawler->filter('img.img-polaroid')->first()->attr('src')
         );
         $this->assertEquals(1, $crawler->filter('form#editReferenceForm')->count());
-    }
 
+        $logs = $this->logRepository->findActionAfterDate(
+            'resource_child_update',
+            $now,
+            $this->getUser('ws_creator')->getId(),
+            $resourceId,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            'icap_reference',
+            'child_action_create'
+        );
+        $this->assertEquals(1, count($logs));
+    }
+ 
     public function testSuccessDiscographyCreation()
     {
+        $now = new \DateTime();
+
         $this->loadFixture(new LoadOptionsData());
         $this->loadFixture(new LoadReferenceData('test', 'ws_creator', 0));
         $this->logUser($this->getUser('ws_creator'));
@@ -94,10 +136,28 @@ class ReferenceControllerTest extends FunctionalTestCase
             $crawler->filter('img.img-polaroid')->first()->attr('src')
         );
         $this->assertEquals(1, $crawler->filter('form#editReferenceForm')->count());
+
+        $logs = $this->logRepository->findActionAfterDate(
+            'resource_child_update',
+            $now,
+            $this->getUser('ws_creator')->getId(),
+            $resourceId,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            'icap_reference',
+            'child_action_create'
+        );
+        $this->assertEquals(1, count($logs));
     }
 
     public function testSuccessFilmographyCreation()
     {
+        $now = new \DateTime();
+
         $this->loadFixture(new LoadOptionsData());
         $this->loadFixture(new LoadReferenceData('test', 'ws_creator', 0));
         $this->logUser($this->getUser('ws_creator'));
@@ -122,10 +182,28 @@ class ReferenceControllerTest extends FunctionalTestCase
             $crawler->filter('img.img-polaroid')->first()->attr('src')
         );
         $this->assertEquals(1, $crawler->filter('form#editReferenceForm')->count());
+
+        $logs = $this->logRepository->findActionAfterDate(
+            'resource_child_update',
+            $now,
+            $this->getUser('ws_creator')->getId(),
+            $resourceId,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            'icap_reference',
+            'child_action_create'
+        );
+        $this->assertEquals(1, count($logs));
     }
 
     public function testSuccessDefaultReferenceCreation()
     {
+        $now = new \DateTime();
+
         $this->loadFixture(new LoadOptionsData());
         $this->loadFixture(new LoadReferenceData('test', 'ws_creator', 0));
         $this->logUser($this->getUser('ws_creator'));
@@ -150,10 +228,28 @@ class ReferenceControllerTest extends FunctionalTestCase
             $crawler->filter('img.img-polaroid')->first()->attr('src')
         );
         $this->assertEquals(1, $crawler->filter('form#editReferenceForm')->count());
+
+        $logs = $this->logRepository->findActionAfterDate(
+            'resource_child_update',
+            $now,
+            $this->getUser('ws_creator')->getId(),
+            $resourceId,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            'icap_reference',
+            'child_action_create'
+        );
+        $this->assertEquals(1, count($logs));
     }
 
     public function testUpdateReference()
     {
+        $now = new \DateTime();
+
         $this->loadFixture(new LoadOptionsData());
         $this->loadFixture(new LoadReferenceData('test', 'ws_creator', 1));
         $this->logUser($this->getUser('ws_creator'));
@@ -175,10 +271,28 @@ class ReferenceControllerTest extends FunctionalTestCase
         $this->assertGreaterThan(0, $crawler->filter('div.section-content')->count());
 
         $this->assertRegExp('/Update success/', $crawler->filter('h3')->first()->text());
+
+        $logs = $this->logRepository->findActionAfterDate(
+            'resource_child_update',
+            $now,
+            $this->getUser('ws_creator')->getId(),
+            $referenceBank->getId(),
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            'icap_reference',
+            'child_action_update'
+        );
+        $this->assertEquals(1, count($logs));
     }
 
     public function testDeleteReference()
     {
+        $now = new \DateTime();
+
         $this->loadFixture(new LoadOptionsData());
         $this->loadFixture(new LoadReferenceData('test', 'ws_creator', 1));
         $this->logUser($this->getUser('ws_creator'));
@@ -202,6 +316,22 @@ class ReferenceControllerTest extends FunctionalTestCase
 
         $this->em->refresh($referenceBank);
         $this->assertEquals(0, count($referenceBank->getReferences()));
+
+        $logs = $this->logRepository->findActionAfterDate(
+            'resource_child_update',
+            $now,
+            $this->getUser('ws_creator')->getId(),
+            $referenceBank->getId(),
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            'icap_reference',
+            'child_action_delete'
+        );
+        $this->assertEquals(1, count($logs));
     }
 
     public function testCustomField()
