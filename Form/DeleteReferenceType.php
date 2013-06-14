@@ -13,7 +13,7 @@ class DeleteReferenceType extends AbstractType
         $builder->add(
             'id',
             'hidden',
-            array('property_path' => false)
+            array('mapped' => false)
         );
     }
 
