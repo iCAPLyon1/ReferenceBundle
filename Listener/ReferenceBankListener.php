@@ -70,7 +70,7 @@ class ReferenceBankListener extends ContainerAware
     {
         $request = $this->container->get('request');
         $form = $this->container->get('form.factory')->create(new ReferenceBankType(), new ReferenceBank());
-        $form->bindRequest($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $referenceBank = $form->getData();

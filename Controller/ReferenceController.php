@@ -47,7 +47,7 @@ class ReferenceController extends Controller
 
     protected function getOptions()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $options = $em->getRepository('ICAPReferenceBundle:ReferenceBankOptions')->findAll();
 
         if ($options != null) {
@@ -89,7 +89,7 @@ class ReferenceController extends Controller
 
     protected function getReferenceBank($referenceBankId)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $referenceBank = $em
             ->getRepository('ICAPReferenceBundle:ReferenceBank')
             ->findOneBy(array('id' => $referenceBankId));
@@ -105,7 +105,7 @@ class ReferenceController extends Controller
 
     protected function getReference($referenceId)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $reference = $em
             ->getRepository('ICAPReferenceBundle:Reference')
             ->findOneBy(array('id' => $referenceId ));
@@ -136,7 +136,7 @@ class ReferenceController extends Controller
     /**
      * @Route(
      *      "/{resourceId}",
-     *      name="icap_reference_list", 
+     *      name="icap_reference_list",
      *      requirements={"resourceId" = "\d+"},
      *      defaults={"page" = 1}
      * )
@@ -149,7 +149,7 @@ class ReferenceController extends Controller
      */
     public function listAction($resourceId, $page)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $referenceBank = $this->getReferenceBank($resourceId);
         $repository = $em->getRepository('ICAPReferenceBundle:Reference');
 
@@ -273,7 +273,7 @@ class ReferenceController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($reference);
             $em->flush();
 
@@ -356,7 +356,7 @@ class ReferenceController extends Controller
      */
     public function createLightAction(Request $request, $resourceId)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $referenceBank = $this->getReferenceBank($resourceId);
         $this->isAllowToEdit($referenceBank);
 
@@ -425,7 +425,7 @@ class ReferenceController extends Controller
      */
     public function deleteAction(Request $request, $resourceId, $id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $referenceBank = $this->getReferenceBank($resourceId);
         $this->isAllowToEdit($referenceBank);
 
@@ -475,7 +475,7 @@ class ReferenceController extends Controller
 
         //Check for csrf
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->remove($reference);
             $em->flush();
 
@@ -559,7 +559,7 @@ class ReferenceController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $reference->addCustomField($customField);
             $em->persist($reference);
             $em->flush();
@@ -642,14 +642,14 @@ class ReferenceController extends Controller
             throw new AccessDeniedException();
         }
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $referenceOptions = $this->getOptions();
 
         $form = $this
             ->container
             ->get('form.factory')
             ->create(new ReferenceBankOptionsType(), $referenceOptions);
-        $form->bindRequest($this->get('request'));
+        $form->handleRequest($this->get('request'));
 
         if ($form->isValid()) {
             $referenceOptions = $form->getData();
@@ -775,7 +775,7 @@ class ReferenceController extends Controller
      */
     public function copyExternalSearchAction(Request $request, $resourceId, $id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $referenceBank = $this->getReferenceBank($resourceId);
         $this->isAllowToEdit($referenceBank);
 
@@ -799,4 +799,3 @@ class ReferenceController extends Controller
         );
     }
 }
- 
