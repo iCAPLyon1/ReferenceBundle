@@ -136,7 +136,7 @@ class ReferenceController extends Controller
     /**
      * @Route(
      *      "/{resourceId}",
-     *      name="icap_reference_list", 
+     *      name="icap_reference_list",
      *      requirements={"resourceId" = "\d+"},
      *      defaults={"page" = 1}
      * )
@@ -649,7 +649,7 @@ class ReferenceController extends Controller
             ->container
             ->get('form.factory')
             ->create(new ReferenceBankOptionsType(), $referenceOptions);
-        $form->bindRequest($this->get('request'));
+        $form->handleRequest($this->get('request'));
 
         if ($form->isValid()) {
             $referenceOptions = $form->getData();
@@ -799,4 +799,3 @@ class ReferenceController extends Controller
         );
     }
 }
- 
