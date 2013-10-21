@@ -1,0 +1,14 @@
+{
+    "name": "icap/dropzone-bundle",
+    "type": "claroline-plugin",
+    "require": {
+        "claroline/core-bundle": ">=2.0.5,<3.0"
+    },
+    "autoload": {
+        "psr-0": { "Icap\\DropzoneBundle": "" }
+    },
+    "target-dir": "Icap/DropzoneBundle",
+    "extra": {
+        "dbVersion": "20130906115738"
+    }
+}
