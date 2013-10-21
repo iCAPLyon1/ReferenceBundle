@@ -1,6 +1,6 @@
 <?php
 
-namespace ICAP\ReferenceBundle\Entity;
+namespace Icap\ReferenceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -55,12 +55,12 @@ class Reference
     protected $data;
 
     /**
-     * @ORM\OneToMany(targetEntity="ICAP\ReferenceBundle\Entity\CustomField", mappedBy="reference", cascade={"all"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Icap\ReferenceBundle\Entity\CustomField", mappedBy="reference", cascade={"all"}, orphanRemoval=true)
      */
     protected $customFields;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ICAP\ReferenceBundle\Entity\ReferenceBank", inversedBy="references")
+     * @ORM\ManyToOne(targetEntity="Icap\ReferenceBundle\Entity\ReferenceBank", inversedBy="references")
      * @ORM\JoinColumn(name="referencebank_id", referencedColumnName="id")
      */
     protected $referenceBank;
@@ -247,10 +247,10 @@ class Reference
     /**
      * Add customFields
      *
-     * @param \ICAP\ReferenceBundle\Entity\CustomField $customField
+     * @param \Icap\ReferenceBundle\Entity\CustomField $customField
      * @return Reference
      */
-    public function addCustomField(\ICAP\ReferenceBundle\Entity\CustomField $customField)
+    public function addCustomField(\Icap\ReferenceBundle\Entity\CustomField $customField)
     {
         $customField->setReference($this);
         $this->customFields[] = $customField;
@@ -261,9 +261,9 @@ class Reference
     /**
      * Remove customFields
      *
-     * @param \ICAP\ReferenceBundle\Entity\CustomField $customField
+     * @param \Icap\ReferenceBundle\Entity\CustomField $customField
      */
-    public function removeCustomField(\ICAP\ReferenceBundle\Entity\CustomField $customField)
+    public function removeCustomField(\Icap\ReferenceBundle\Entity\CustomField $customField)
     {
         $this->customFields->removeElement($customField);
     }
@@ -281,7 +281,7 @@ class Reference
     /**
      * Get customField by fieldKey
      *
-     * @return \ICAP\ReferenceBundle\Entity\CustomField $customField or null 
+     * @return \Icap\ReferenceBundle\Entity\CustomField $customField or null
      */
     public function getCustomFieldByKey($fieldKey) {
         foreach ($this->getCustomFields() as $customField) {
@@ -315,10 +315,10 @@ class Reference
     /**
      * Set referenceBank
      *
-     * @param \ICAP\ReferenceBundle\Entity\ReferenceBank $referenceBank
+     * @param \Icap\ReferenceBundle\Entity\ReferenceBank $referenceBank
      * @return Reference
      */
-    public function setReferenceBank(\ICAP\ReferenceBundle\Entity\ReferenceBank $referenceBank = null)
+    public function setReferenceBank(\Icap\ReferenceBundle\Entity\ReferenceBank $referenceBank = null)
     {
         $this->referenceBank = $referenceBank;
     
@@ -328,7 +328,7 @@ class Reference
     /**
      * Get referenceBank
      *
-     * @return \ICAP\ReferenceBundle\Entity\ReferenceBank 
+     * @return \Icap\ReferenceBundle\Entity\ReferenceBank
      */
     public function getReferenceBank()
     {

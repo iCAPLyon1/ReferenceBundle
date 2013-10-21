@@ -1,4 +1,4 @@
-{% extends "ICAPReferenceBundle::layout.html.twig" %}
+{% extends "IcapReferenceBundle::layout.html.twig" %}
 
 {% block reference_breadcrumb %}
     {{ parent() }}
@@ -17,7 +17,7 @@
             <header class="page-header">
                 <h3>Are you sure to delete "{{ reference.title|capitalize }}"?</h3>
             </header>
-            {% include "ICAPReferenceBundle:Reference:deleteForm.html.twig" %}
+            {% include "IcapReferenceBundle:Reference:deleteForm.html.twig" %}
         </div>
     </div>
 {% endblock %}

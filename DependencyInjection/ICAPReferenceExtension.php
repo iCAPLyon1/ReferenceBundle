@@ -1,6 +1,6 @@
 <?php
 
-namespace ICAP\ReferenceBundle\DependencyInjection;
+namespace Icap\ReferenceBundle\DependencyInjection;
 
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -12,7 +12,7 @@ use Symfony\Component\Config\FileLocator;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class ICAPReferenceExtension extends Extension
+class IcapReferenceExtension extends Extension
 {
     /**
      * {@inheritDoc}

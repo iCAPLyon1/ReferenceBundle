@@ -1,10 +1,10 @@
 <?php
 
-namespace ICAP\ReferenceBundle\Service;
+namespace Icap\ReferenceBundle\Service;
 
-use ICAP\ReferenceBundle\Form\Reference\ReferenceType;
-use ICAP\ReferenceBundle\Form\Reference\EditReferenceType;
-use ICAP\ReferenceBundle\Form\Reference\CustomFieldType;
+use Icap\ReferenceBundle\Form\Reference\ReferenceType;
+use Icap\ReferenceBundle\Form\Reference\EditReferenceType;
+use Icap\ReferenceBundle\Form\Reference\CustomFieldType;
 
 class FormManager
 {

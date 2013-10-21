@@ -1,6 +1,6 @@
 <?php
 
-namespace ICAP\ReferenceBundle\Form\Reference;
+namespace Icap\ReferenceBundle\Form\Reference;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,7 +28,7 @@ class ReferenceType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'ICAP\ReferenceBundle\Entity\Reference',
+            'data_class' => 'Icap\ReferenceBundle\Entity\Reference',
             'dataType' => null,
         ));
     }

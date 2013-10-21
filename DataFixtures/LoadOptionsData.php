@@ -1,8 +1,8 @@
 <?php
 
-namespace ICAP\ReferenceBundle\DataFixtures;
+namespace Icap\ReferenceBundle\DataFixtures;
 
-use ICAP\ReferenceBundle\Entity\ReferenceBankOptions;
+use Icap\ReferenceBundle\Entity\ReferenceBankOptions;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 

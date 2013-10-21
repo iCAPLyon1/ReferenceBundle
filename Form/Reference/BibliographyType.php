@@ -1,6 +1,6 @@
 <?php
 
-namespace ICAP\ReferenceBundle\Form\Reference;
+namespace Icap\ReferenceBundle\Form\Reference;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;

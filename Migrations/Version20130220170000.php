@@ -1,6 +1,6 @@
 <?php
 
-namespace ICAP\ReferenceBundle\Migrations;
+namespace Icap\ReferenceBundle\Migrations;
 
 use Claroline\CoreBundle\Library\Installation\BundleMigration;
 use Doctrine\DBAL\Schema\Schema;

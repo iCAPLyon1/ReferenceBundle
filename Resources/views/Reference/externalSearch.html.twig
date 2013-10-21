@@ -1,4 +1,4 @@
-{% extends "ICAPReferenceBundle::layout.html.twig" %}
+{% extends "IcapReferenceBundle::layout.html.twig" %}
 
 {% block reference_breadcrumb %}
     {{ parent() }}
@@ -52,11 +52,11 @@
         {% for item in pager.currentPageResults %}
             <div class="well">
                 {% if reference.type == 'bibliography' %}
-                    {% include "ICAPReferenceBundle:Reference:externalSearchBibliography.html.twig" %}
+                    {% include "IcapReferenceBundle:Reference:externalSearchBibliography.html.twig" %}
                 {% elseif reference.type == 'filmography' %}
-                    {% include "ICAPReferenceBundle:Reference:externalSearchFilmography.html.twig" %}
+                    {% include "IcapReferenceBundle:Reference:externalSearchFilmography.html.twig" %}
                 {% elseif reference.type == 'discography' %}
-                    {% include "ICAPReferenceBundle:Reference:externalSearchDiscography.html.twig" %}
+                    {% include "IcapReferenceBundle:Reference:externalSearchDiscography.html.twig" %}
                 {% endif %}
             </div>
         {% endfor %}

@@ -1,33 +1,33 @@
 services:
     icap_reference.form_manager: 
-        class: ICAP\ReferenceBundle\Service\FormManager
+        class: Icap\ReferenceBundle\Service\FormManager
         arguments: [@service_container]
 
     #TODO see if useless
     icap_reference.choose_type:
-        class: ICAP\ReferenceBundle\Form\ChooseReferenceType
+        class: Icap\ReferenceBundle\Form\ChooseReferenceType
         arguments: [@service_container]
 
     icap_type.reference_default: 
-        class: ICAP\ReferenceBundle\Form\Reference\DefaultType
+        class: Icap\ReferenceBundle\Form\Reference\DefaultType
         arguments: []
         tags:
             - { name: form.type, alias: default }
 
     icap_type.reference_bibliography: 
-        class: ICAP\ReferenceBundle\Form\Reference\BibliographyType
+        class: Icap\ReferenceBundle\Form\Reference\BibliographyType
         arguments: []
         tags:
             - { name: form.type, alias: bibliography }
 
     icap_type.reference_filmography: 
-        class: ICAP\ReferenceBundle\Form\Reference\FilmographyType
+        class: Icap\ReferenceBundle\Form\Reference\FilmographyType
         arguments: []
         tags:
             - { name: form.type, alias: filmography }
 
     icap_type.reference_discography: 
-        class: ICAP\ReferenceBundle\Form\Reference\DiscographyType
+        class: Icap\ReferenceBundle\Form\Reference\DiscographyType
         arguments: []
         tags:
             - { name: form.type, alias: discography }

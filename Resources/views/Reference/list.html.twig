@@ -1,4 +1,4 @@
-{% extends "ICAPReferenceBundle::layout.html.twig" %}
+{% extends "IcapReferenceBundle::layout.html.twig" %}
 {% block reference_breadcrumb %}
     <li class="active"><i class="icon-file"></i>{{ referenceBank.name }}</li>
 {% endblock %}
@@ -36,17 +36,17 @@
                 <div class="reference-list-item well">
                     <div class="row-fluid">
                         <div class="span1">
-                            {% include "ICAPReferenceBundle:Reference:icon.html.twig" %}
+                            {% include "IcapReferenceBundle:Reference:icon.html.twig" %}
                         </div>
                         <div class="span7">
                             {% if reference.type == 'bibliography' %}
-                                {% include "ICAPReferenceBundle:Reference:ListDetailBibliography.html.twig" %}
+                                {% include "IcapReferenceBundle:Reference:ListDetailBibliography.html.twig" %}
                             {% elseif reference.type == 'filmography' %}
-                                {% include "ICAPReferenceBundle:Reference:ListDetailFilmography.html.twig" %}
+                                {% include "IcapReferenceBundle:Reference:ListDetailFilmography.html.twig" %}
                             {% elseif reference.type == 'discography' %}
-                                {% include "ICAPReferenceBundle:Reference:ListDetailDiscography.html.twig" %}
+                                {% include "IcapReferenceBundle:Reference:ListDetailDiscography.html.twig" %}
                             {% else %}
-                                {% include "ICAPReferenceBundle:Reference:ListDetailDiscography.html.twig" %}
+                                {% include "IcapReferenceBundle:Reference:ListDetailDiscography.html.twig" %}
                             {% endif %}
                         </div>
                         {% if is_granted('EDIT', reference) %}

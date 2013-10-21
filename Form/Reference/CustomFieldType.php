@@ -1,6 +1,6 @@
 <?php
 
-namespace ICAP\ReferenceBundle\Form\Reference;
+namespace Icap\ReferenceBundle\Form\Reference;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
@@ -19,7 +19,7 @@ class CustomFieldType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'ICAP\ReferenceBundle\Entity\CustomField',
+            'data_class' => 'Icap\ReferenceBundle\Entity\CustomField',
         ));
     }
 

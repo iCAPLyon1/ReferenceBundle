@@ -1,6 +1,6 @@
 <?php
 
-namespace ICAP\ReferenceBundle\Form;
+namespace Icap\ReferenceBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

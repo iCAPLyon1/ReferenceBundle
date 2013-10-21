@@ -1,6 +1,6 @@
 <?php
 
-namespace ICAP\ReferenceBundle\Entity;
+namespace Icap\ReferenceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -29,7 +29,7 @@ class CustomField
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="ICAP\ReferenceBundle\Entity\Reference", inversedBy="customFields")
+     * @ORM\ManyToOne(targetEntity="Icap\ReferenceBundle\Entity\Reference", inversedBy="customFields")
      * @ORM\JoinColumn(name="reference_id", referencedColumnName="id")
      */
     protected $reference;
@@ -52,10 +52,10 @@ class CustomField
     /**
      * Set reference
      *
-     * @param \ICAP\ReferenceBundle\Entity\Reference $reference
+     * @param \Icap\ReferenceBundle\Entity\Reference $reference
      * @return CustomField
      */
-    public function setReference(\ICAP\ReferenceBundle\Entity\Reference $reference = null)
+    public function setReference(\Icap\ReferenceBundle\Entity\Reference $reference = null)
     {
         $this->reference = $reference;
     
@@ -65,7 +65,7 @@ class CustomField
     /**
      * Get reference
      *
-     * @return \ICAP\ReferenceBundle\Entity\Reference 
+     * @return \Icap\ReferenceBundle\Entity\Reference
      */
     public function getReference()
     {

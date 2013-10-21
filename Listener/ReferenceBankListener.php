@@ -1,6 +1,6 @@
 <?php
 
-namespace ICAP\ReferenceBundle\Listener;
+namespace Icap\ReferenceBundle\Listener;
 
 use Claroline\CoreBundle\Library\Event\PluginOptionsEvent;
 use Claroline\CoreBundle\Library\Event\CreateFormResourceEvent;
@@ -12,10 +12,10 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-use ICAP\ReferenceBundle\Form\ReferenceBankType;
-use ICAP\ReferenceBundle\Form\ReferenceBankOptionsType;
-use ICAP\ReferenceBundle\Entity\ReferenceBank;
-use ICAP\ReferenceBundle\Entity\ReferenceBankOptions;
+use Icap\ReferenceBundle\Form\ReferenceBankType;
+use Icap\ReferenceBundle\Form\ReferenceBankOptionsType;
+use Icap\ReferenceBundle\Entity\ReferenceBank;
+use Icap\ReferenceBundle\Entity\ReferenceBankOptions;
 
 
 class ReferenceBankListener extends ContainerAware
@@ -80,7 +80,7 @@ class ReferenceBankListener extends ContainerAware
     {
         $referenceOptionsList = $this->container
             ->get('doctrine.orm.entity_manager')
-            ->getRepository('ICAPReferenceBundle:ReferenceBankOptions')
+            ->getRepository('IcapReferenceBundle:ReferenceBankOptions')
             ->findAll()
         ;
 
@@ -93,7 +93,7 @@ class ReferenceBankListener extends ContainerAware
 
         $form = $this->container->get('form.factory')->create(new ReferenceBankOptionsType(), $referenceOptions);
         $content = $this->container->get('templating')->render(
-            'ICAPReferenceBundle::plugin_options_form.html.twig', array(
+            'IcapReferenceBundle::plugin_options_form.html.twig', array(
                 'form' => $form->createView()
             )
         );

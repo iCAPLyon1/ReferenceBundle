@@ -1,6 +1,6 @@
 <?php
 
-namespace ICAP\ReferenceBundle\Entity;
+namespace Icap\ReferenceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

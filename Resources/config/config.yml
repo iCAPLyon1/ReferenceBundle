@@ -3,6 +3,6 @@ plugin:
 
     resources:
         - name: icap_referencebank
-          class: ICAP\ReferenceBundle\Entity\ReferenceBank
+          class: Icap\ReferenceBundle\Entity\ReferenceBank
           is_visible: true
           is_browsable: false

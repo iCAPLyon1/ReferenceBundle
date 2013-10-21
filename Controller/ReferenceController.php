@@ -1,6 +1,6 @@
 <?php
 
-namespace ICAP\ReferenceBundle\Controller;
+namespace Icap\ReferenceBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,11 +11,11 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use ICAP\ReferenceBundle\Form\DeleteReferenceType;
-use ICAP\ReferenceBundle\Form\ReferenceBankOptionsType;
-use ICAP\ReferenceBundle\Entity\Reference;
-use ICAP\ReferenceBundle\Entity\ReferenceBankOptions;
-use ICAP\ReferenceBundle\Entity\CustomField;
+use Icap\ReferenceBundle\Form\DeleteReferenceType;
+use Icap\ReferenceBundle\Form\ReferenceBankOptionsType;
+use Icap\ReferenceBundle\Entity\Reference;
+use Icap\ReferenceBundle\Entity\ReferenceBankOptions;
+use Icap\ReferenceBundle\Entity\CustomField;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\Exception\NotValidCurrentPageException;
@@ -32,15 +32,12 @@ class ReferenceController extends Controller
         if (false === $this->get('security.context')->isGranted('OPEN', $referenceBank)) {
             throw new AccessDeniedException();
         }
-
-        // var_dump('ROLE_ANONYMOUS');
-        // die();
     }
 
     protected function getOptions() 
     {
         $em = $this->getDoctrine()->getEntityManager();
-        $options = $em->getRepository('ICAPReferenceBundle:ReferenceBankOptions')->findAll();
+        $options = $em->getRepository('IcapReferenceBundle:ReferenceBankOptions')->findAll();
 
         if($options != null) {
             $options = $options[0];
@@ -67,7 +64,7 @@ class ReferenceController extends Controller
     protected function getResourceBank($resourceId) 
     {
         $em = $this->getDoctrine()->getEntityManager();
-        $referenceBank = $em->getRepository('ICAPReferenceBundle:ReferenceBank')->findOneBy(array('id' => $resourceId));
+        $referenceBank = $em->getRepository('IcapReferenceBundle:ReferenceBank')->findOneBy(array('id' => $resourceId));
 
         if($referenceBank == null) {
             throw new NotFoundHttpException();
@@ -81,7 +78,7 @@ class ReferenceController extends Controller
     protected function getResource($id) 
     {
         $em = $this->getDoctrine()->getEntityManager();
-        $reference = $em->getRepository('ICAPReferenceBundle:Reference')->findOneBy(array('id' => $id ));
+        $reference = $em->getRepository('IcapReferenceBundle:Reference')->findOneBy(array('id' => $id ));
         if(!$reference) {
             throw $this->createNotFoundException('The reference does not exist');
         }
@@ -98,7 +95,7 @@ class ReferenceController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
         $referenceBank = $this->getResourceBank($resourceId);
-        $repository = $em->getRepository('ICAPReferenceBundle:Reference');
+        $repository = $em->getRepository('IcapReferenceBundle:Reference');
 
         $query = $repository
             ->createQueryBuilder('reference')
@@ -232,7 +229,7 @@ class ReferenceController extends Controller
             $referencesConfiguration = $serviceFormManager->getReferencesConfiguration();
             
             return $this->render(
-                'ICAPReferenceBundle:Reference:newLightModal.html.twig', 
+                'IcapReferenceBundle:Reference:newLightModal.html.twig',
                 array(
                     'referenceBank' => $referenceBank,
                     'form' => $form->createView(),
@@ -251,7 +248,7 @@ class ReferenceController extends Controller
 
     /**
      * @Route("/{resourceId}/create_light", requirements={"resourceId" = "\d+"}, name="icap_reference_create_light")
-     * @Template("ICAPReferenceBundle:Reference:newLight.html.twig")
+     * @Template("IcapReferenceBundle:Reference:newLight.html.twig")
      */
     public function createLightAction(Request $request, $resourceId)
     {
@@ -305,7 +302,7 @@ class ReferenceController extends Controller
 
         if($request->isXMLHttpRequest()) {
             return $this->render(
-                'ICAPReferenceBundle:Reference:deleteModal.html.twig', 
+                'IcapReferenceBundle:Reference:deleteModal.html.twig',
                 array(
                     'referenceBank' => $referenceBank,
                     'workspace' => $referenceBank->getWorkspace(), 
@@ -326,7 +323,7 @@ class ReferenceController extends Controller
 
     /**
      * @Route("/{resourceId}/remove/{id}", requirements={"resourceId" = "\d+", "id" = "\d+"}, name="icap_reference_remove")
-     * @Template("ICAPReferenceBundle:Reference:delete.html.twig")
+     * @Template("IcapReferenceBundle:Reference:delete.html.twig")
      * @Method("POST")
      */
     public function removeAction(Request $request, $resourceId, $id) {
@@ -383,7 +380,7 @@ class ReferenceController extends Controller
 
     /**
      * @Route("/{resourceId}/create_custom_field/{id}", name="icap_reference_create_custom_field")
-     * @Template("ICAPReferenceBundle:Reference:newCustomField.html.twig")
+     * @Template("IcapReferenceBundle:Reference:newCustomField.html.twig")
      */
     public function createCustomFieldAction(Request $request, $resourceId, $id)
     {
@@ -426,7 +423,7 @@ class ReferenceController extends Controller
         $this->isAllowToEdit($referenceBank);
 
         $em = $this->getDoctrine()->getManager();
-        $customField = $em->getRepository('ICAPReferenceBundle:CustomField')->find($id);
+        $customField = $em->getRepository('IcapReferenceBundle:CustomField')->find($id);
         if(!$customField) {
             throw $this->createNotFoundException('The customField does not exist');
         }
@@ -468,7 +465,7 @@ class ReferenceController extends Controller
         }
 
         return $this->render(
-            'ICAPReferenceBundle::plugin_options_form.html.twig',
+            'IcapReferenceBundle::plugin_options_form.html.twig',
             array('form' => $form->createView())
         );
     }

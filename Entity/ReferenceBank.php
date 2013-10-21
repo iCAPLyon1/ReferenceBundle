@@ -1,6 +1,6 @@
 <?php
 
-namespace ICAP\ReferenceBundle\Entity;
+namespace Icap\ReferenceBundle\Entity;
 
 use Claroline\CoreBundle\Entity\Resource\AbstractResource;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class ReferenceBank extends AbstractResource
 {
      /**
-     * @ORM\OneToMany(targetEntity="ICAP\ReferenceBundle\Entity\Reference", mappedBy="referenceBank", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Icap\ReferenceBundle\Entity\Reference", mappedBy="referenceBank", cascade={"persist"}, orphanRemoval=true)
      */
     protected $references;
 
@@ -27,10 +27,10 @@ class ReferenceBank extends AbstractResource
     /**
      * Add reference
      *
-     * @param \ICAP\ReferenceBundle\Entity\Reference $reference
+     * @param \Icap\ReferenceBundle\Entity\Reference $reference
      * @return ReferenceBank
      */
-    public function addReference(\ICAP\ReferenceBundle\Entity\Reference $reference)
+    public function addReference(\Icap\ReferenceBundle\Entity\Reference $reference)
     {
         $customField->setReferenceBank($this);
         $this->references[] = $reference;
@@ -41,9 +41,9 @@ class ReferenceBank extends AbstractResource
     /**
      * Remove reference
      *
-     * @param \ICAP\ReferenceBundle\Entity\Reference $reference
+     * @param \Icap\ReferenceBundle\Entity\Reference $reference
      */
-    public function removeReference(\ICAP\ReferenceBundle\Entity\Reference $reference)
+    public function removeReference(\Icap\ReferenceBundle\Entity\Reference $reference)
     {
         $this->references->removeElement($reference);
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace ICAP\ReferenceBundle\Controller;
+namespace Icap\ReferenceBundle\Controller;
 
 /**
  * Amazon ECS Class

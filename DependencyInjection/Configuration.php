@@ -1,6 +1,6 @@
 <?php
 
-namespace ICAP\ReferenceBundle\DependencyInjection;
+namespace Icap\ReferenceBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

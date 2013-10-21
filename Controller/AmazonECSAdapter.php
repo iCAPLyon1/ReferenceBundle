@@ -1,6 +1,6 @@
 <?php
 
-namespace ICAP\ReferenceBundle\Controller;
+namespace Icap\ReferenceBundle\Controller;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Pagerfanta\Adapter\AdapterInterface;

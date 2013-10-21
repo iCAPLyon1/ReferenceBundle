@@ -1,6 +1,6 @@
 services:
     icap.listener.referencebank_listener:
-        class: ICAP\ReferenceBundle\Listener\ReferenceBankListener
+        class: Icap\ReferenceBundle\Listener\ReferenceBankListener
         calls:
           - [setContainer, ["@service_container"]]
         tags: 
