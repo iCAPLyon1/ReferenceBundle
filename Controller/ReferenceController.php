@@ -189,7 +189,7 @@ class ReferenceController extends Controller
             $reference->getType(),
             $reference
         );
-        $form->bind($request);
+        $form->handleRequest($request);
 
         if($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
@@ -257,7 +257,7 @@ class ReferenceController extends Controller
         $this->isAllowToEdit($referenceBank);
 
         $form = $this->createForm($this->get('icap_reference.choose_type'));
-        $form->bind($request);
+        $form->handleRequest($request);
 
         if($form->isValid()) {
             $data = $form->getData();
@@ -298,7 +298,7 @@ class ReferenceController extends Controller
         $reference = $this->getResource($id);
 
         $form = $this->createForm(new DeleteReferenceType(), $reference);
-        $form->bind($request);
+        $form->handleRequest($request);
 
         if($request->isXMLHttpRequest()) {
             return $this->render(
@@ -331,7 +331,7 @@ class ReferenceController extends Controller
         $this->isAllowToEdit($referenceBank);
 
         $form = $this->createForm(new DeleteReferenceType());
-        $form->bind($request);
+        $form->handleRequest($request);
         $reference = $this->getResource($id);
 
         //Check for csrf
@@ -391,7 +391,7 @@ class ReferenceController extends Controller
 
         $customField = new CustomField();
         $form = $this->get('icap_reference.form_manager')->getCustomForm($customField);
-        $form->bind($request);
+        $form->handleRequest($request);
 
         if($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
@@ -454,7 +454,7 @@ class ReferenceController extends Controller
         $referenceOptions = $this->getOptions();
 
         $form = $this->container->get('form.factory')->create(new ReferenceBankOptionsType(), $referenceOptions);
-        $form->bindRequest($this->get('request'));
+        $form->handleRequest($this->get('request'));
 
         if ($form->isValid()) {
             $referenceOptions = $form->getData();

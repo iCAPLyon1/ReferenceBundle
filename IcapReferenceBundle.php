@@ -10,10 +10,4 @@ class IcapReferenceBundle extends PluginBundle
     {
         return "reference";
     }
-
-    public function hasMigrations()
-    {
-        return false;
-    }
-
 }

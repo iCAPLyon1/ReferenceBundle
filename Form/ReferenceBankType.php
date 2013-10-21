@@ -4,6 +4,7 @@ namespace Icap\ReferenceBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ReferenceBankType extends AbstractType
 {
@@ -17,10 +18,10 @@ class ReferenceBankType extends AbstractType
         return 'icap_referencebank_form';
     }
 
-    public function getDefaultOptions(array $options)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return array(
+        $resolver->setDefaults(array(
             'translation_domain' => 'icap_referencebank'
-        );
+        ));
     }
 }

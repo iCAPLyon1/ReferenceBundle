@@ -2,11 +2,11 @@
 
 namespace Icap\ReferenceBundle\Listener;
 
-use Claroline\CoreBundle\Library\Event\PluginOptionsEvent;
-use Claroline\CoreBundle\Library\Event\CreateFormResourceEvent;
-use Claroline\CoreBundle\Library\Event\CreateResourceEvent;
-use Claroline\CoreBundle\Library\Event\DeleteResourceEvent;
-use Claroline\CoreBundle\Library\Event\OpenResourceEvent;
+use Claroline\CoreBundle\Event\PluginOptionsEvent;
+use Claroline\CoreBundle\Event\CreateFormResourceEvent;
+use Claroline\CoreBundle\Event\CreateResourceEvent;
+use Claroline\CoreBundle\Event\DeleteResourceEvent;
+use Claroline\CoreBundle\Event\OpenResourceEvent;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -24,7 +24,7 @@ class ReferenceBankListener extends ContainerAware
     {
         $form = $this->container->get('form.factory')->create(new ReferenceBankType(), new ReferenceBank());
         $content = $this->container->get('templating')->render(
-            'ClarolineCoreBundle:Resource:create_form.html.twig',
+            'ClarolineCoreBundle:Resource:createForm.html.twig',
             array(
                 'form' => $form->createView(),
                 'resourceType' => 'icap_referencebank'
@@ -39,14 +39,14 @@ class ReferenceBankListener extends ContainerAware
     {
         $request = $this->container->get('request');
         $form = $this->container->get('form.factory')->create(new ReferenceBankType(), new ReferenceBank());
-        $form->bindRequest($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $referenceBank = $form->getData();
-            $event->setResource($referenceBank);
+            $dropzone = $form->getData();
+            $event->setResources(array($dropzone));
         } else {
             $content = $this->container->get('templating')->render(
-                'ClarolineCoreBundle:Resource:create_form.html.twig',
+                'ClarolineCoreBundle:Resource:createForm.html.twig',
                 array(
                     'form' => $form->createView(),
                     'resourceType' => 'icap_referencebank'
