@@ -11,9 +11,9 @@ class IcapReferenceBundle extends PluginBundle
         return "reference";
     }
 
-    // public function getNamespace()
-    // {
-    //     return "plugin_icap_reference";
-    // }
+    public function hasMigrations()
+    {
+        return false;
+    }
 
 }
