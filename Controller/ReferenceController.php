@@ -118,8 +118,8 @@ class ReferenceController extends Controller
 
         return array(
             'pager' => $pager,
-            'workspace' => $referenceBank->getWorkspace(),
-            'pathArray' => $referenceBank->getPathArray(),
+            'workspace' => $referenceBank->getResourceNode()->getWorkspace(),
+            '_resource' => $referenceBank,
             'referenceBank' => $referenceBank
         );
     }
@@ -135,8 +135,8 @@ class ReferenceController extends Controller
 
         return array(
             'referenceBank' => $referenceBank,
-            'workspace' => $referenceBank->getWorkspace(),
-            'pathArray' => $referenceBank->getPathArray(),
+            'workspace' => $referenceBank->getResourceNode()->getWorkspace(),
+            '_resource' => $referenceBank,
             'reference' => $reference
         );
     }
@@ -167,8 +167,8 @@ class ReferenceController extends Controller
 
         return array(
             'referenceBank' => $referenceBank,
-            'workspace' => $referenceBank->getWorkspace(),
-            'pathArray' => $referenceBank->getPathArray(),
+            'workspace' => $referenceBank->getResourceNode()->getWorkspace(),
+            '_resource' => $referenceBank,
             'reference' => $reference,
             'form' => $form->createView(),
             'searchCategory' => $searchCategory
@@ -207,7 +207,8 @@ class ReferenceController extends Controller
     
         return array(
             'referenceBank' => $referenceBank,
-            'workspace' => $referenceBank->getWorkspace(),
+            'workspace' => $referenceBank->getResourceNode()->getWorkspace(),
+            '_resource' => $referenceBank,
             'reference' => $reference,
             'form' => $form->createView()
         );
@@ -233,15 +234,15 @@ class ReferenceController extends Controller
                 array(
                     'referenceBank' => $referenceBank,
                     'form' => $form->createView(),
-                    'workspace' => $referenceBank->getWorkspace()
+                    'workspace' => $referenceBank->getResourceNode()->getWorkspace()
                 )
             );
         }
 
         return array(
             'referenceBank' => $referenceBank,
-            'workspace' => $referenceBank->getWorkspace(),
-            'pathArray' => $referenceBank->getPathArray(),
+            'workspace' => $referenceBank->getResourceNode()->getWorkspace(),
+            '_resource' => $referenceBank,
             'form' => $form->createView()
         );
     }
@@ -281,7 +282,8 @@ class ReferenceController extends Controller
 
         return array(
             'referenceBank' => $referenceBank,
-            'workspace' => $referenceBank->getWorkspace(), 
+            '_resource' => $referenceBank,
+            'workspace' => $referenceBank->getResourceNode()->getWorkspace(),
             'form' => $form->createView()
         );
     }
@@ -305,7 +307,8 @@ class ReferenceController extends Controller
                 'IcapReferenceBundle:Reference:deleteModal.html.twig',
                 array(
                     'referenceBank' => $referenceBank,
-                    'workspace' => $referenceBank->getWorkspace(), 
+                    '_resource' => $referenceBank,
+                    'workspace' => $referenceBank->getResourceNode()->getWorkspace(),
                     'reference' => $reference,
                     'form' => $form->createView()
                 )
@@ -314,8 +317,8 @@ class ReferenceController extends Controller
 
         return array(
             'referenceBank' => $referenceBank,
-            'workspace' => $referenceBank->getWorkspace(), 
-            'pathArray' => $referenceBank->getPathArray(),
+            'workspace' => $referenceBank->getResourceNode()->getWorkspace(),
+            '_resource' => $referenceBank,
             'reference' => $reference,
             'form' => $form->createView()
         );
@@ -350,8 +353,8 @@ class ReferenceController extends Controller
         
         return array(
             'referenceBank' => $referenceBank,
-            'workspace' => $referenceBank->getWorkspace(), 
-            'pathArray' => $referenceBank->getPathArray(),
+            'workspace' => $referenceBank->getResourceNode()->getWorkspace(),
+            '_resource' => $referenceBank,
             'reference' => $reference,
             'form' => $form->createView()
         );
@@ -371,8 +374,8 @@ class ReferenceController extends Controller
 
         return array(
             'referenceBank' => $referenceBank,
-            'workspace' => $referenceBank->getWorkspace(), 
-            'pathArray' => $referenceBank->getPathArray(),
+            'workspace' => $referenceBank->getResourceNode()->getWorkspace(),
+            '_resource' => $referenceBank,
             'reference' => $reference,
             'form' => $form->createView()
         );
@@ -404,8 +407,8 @@ class ReferenceController extends Controller
 
         return array(
             'referenceBank' => $referenceBank,
-            'workspace' => $referenceBank->getWorkspace(), 
-            'pathArray' => $referenceBank->getPathArray(),
+            'workspace' => $referenceBank->getResourceNode()->getWorkspace(),
+            '_resource' => $referenceBank,
             'id' => $id,
             'form' => $form->createView(),
             'reference' => $reference
@@ -529,8 +532,8 @@ class ReferenceController extends Controller
 
         return array(
             'referenceBank' => $referenceBank,
-            'workspace' => $referenceBank->getWorkspace(), 
-            'pathArray' => $referenceBank->getPathArray(),
+            'workspace' => $referenceBank->getResourceNode()->getWorkspace(),
+            '_resource' => $referenceBank,
             'reference' => $reference,
             'search' => $search,
             'decodedSearch' => $decodedSearch,

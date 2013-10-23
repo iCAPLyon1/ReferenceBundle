@@ -10,7 +10,7 @@ class DefaultType extends AbstractReferenceDataExtractor
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('year', 'integer', array('required' => false))
+            ->add('year', null, array('required' => false))
             ->add('language', null, array('required' => false))
         ;
     }

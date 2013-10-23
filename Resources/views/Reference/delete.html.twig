@@ -4,15 +4,14 @@
     {{ parent() }}
     <li>
         <a href="{{ path('icap_reference_show', { 'resourceId': referenceBank.id, 'id': reference.id }) }}">
-            <i class="icon-bookmark"></i>{{ reference.title | capitalize }}
-        </a> 
-        <span class="divider">/</span>
+            <span class="glyphicon icon-bookmark"></span> {{ reference.title | capitalize }}
+        </a>
     </li>
-    <li class="active"><i class="icon-remove-sign"></i>Delete</li>
+    <li class="active"><span class="glyphicon icon-remove"></span> {{ 'Delete'|trans }}</li>
 {% endblock %}
 
 {% block reference_content %}
-    <div class="container-fluid">
+    <div class="container">
         <div class="text-center">
             <header class="page-header">
                 <h3>Are you sure to delete "{{ reference.title|capitalize }}"?</h3>

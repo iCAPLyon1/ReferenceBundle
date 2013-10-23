@@ -20,7 +20,7 @@ class ReferenceType extends AbstractType
 
         if($options['dataType']) {
             $builder
-                ->add('data', $options['dataType'], array('label_attr' => array('style' => 'display:none')))
+                ->add('data', $options['dataType'])
             ;
         }
     }

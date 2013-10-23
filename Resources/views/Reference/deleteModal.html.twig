@@ -1,24 +1,30 @@
-<div id="deleteReferenceModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">Are you sure to delete "{{ reference.title|capitalize }}"?</h3>
+<div id="deleteReferenceModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">{{ 'Are you sure to delete %title%'|trans({'%title%': (reference.title|capitalize)}) }}</h3>
+            </div>
+            <div class="modal-body">
+                {% include "IcapReferenceBundle:Reference:deleteForm.html.twig" %}
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{{ 'Cancel'|trans }}</button>
+                    <button id="deleteReferenceModal-submit" class="btn btn-danger"><span class="glyphicon icon-remove"></span> {{ 'Confirm delete'|trans }}</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="modal-body">
-        {% include "IcapReferenceBundle:Reference:deleteForm.html.twig" %}
-    </div>
-    <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-        <button id="deleteReferenceModal-submit" class="btn btn-danger"><i class="icon-remove-sign"></i> Confirm delete</button>
-    </div>
-
-    <script type="text/javascript">
-        jQuery(document).ready(function () {
-            jQuery('form[name="icap_reference_remove"] input[type="submit"]').hide();
-
-            jQuery('#deleteReferenceModal-submit').on('click', function() {
-                //I do the "click" on submit button for keep html5 warning
-                jQuery('form[name="icap_reference_remove"] input[type="submit"]').trigger('click');
-            });
-        });
-    </script>
 </div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery('form[name="icap_reference_remove"] input[type="submit"]').hide();
+
+        jQuery('#deleteReferenceModal-submit').on('click', function() {
+            //I do the "click" on submit button for keep html5 warning
+            jQuery('form[name="icap_reference_remove"] input[type="submit"]').trigger('click');
+        });
+    });
+</script>

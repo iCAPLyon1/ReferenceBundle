@@ -3,19 +3,19 @@
 {% block externalSearchHeader %}
     {% if item.ItemAttributes.Actor is defined %}
         <p><strong>{% trans %}Actors{% endtrans %}{% trans %}:{% endtrans %} </strong>{{ item.ItemAttributes.Actor|raw|join(', ') }}</p>
-        <input name="actors" type="hidden" value="{{ item.ItemAttributes.Actor|join(', ') }}"></input>
+        <input name="actors" type="hidden" value="{{ item.ItemAttributes.Actor|join(', ') }}"/>
     {% endif %}
     {% if item.ItemAttributes.Director is defined %}
         <p><strong>{% trans %}Director{% endtrans %}{% trans %}:{% endtrans %} </strong>{{ item.ItemAttributes.Director|raw|join(', ') }}</p>
-        <input name="director" type="hidden" value="{{ item.ItemAttributes.Director|join(', ') }}"></input>
+        <input name="director" type="hidden" value="{{ item.ItemAttributes.Director|join(', ') }}"/>
     {% endif %}
     {% if item.ItemAttributes.Publisher is defined %}
         <p><strong>{% trans %}Publisher{% endtrans %}{% trans %}:{% endtrans %} </strong>{{ item.ItemAttributes.Publisher|raw|join(', ') }}</p>
-        <input name="publisher" type="hidden" value="{{ item.ItemAttributes.Publisher|join(', ') }}"></input>
+        <input name="publisher" type="hidden" value="{{ item.ItemAttributes.Publisher|join(', ') }}"/>
     {% endif %}
     {% if item.ItemAttributes.ReleaseDate is defined %}
         <p><strong>{% trans %}Releasedate{% endtrans %}{% trans %}:{% endtrans %} </strong>{{ item.ItemAttributes.ReleaseDate|date("d F Y") }}</p>
-        <input name="releaseDate" type="hidden" value="{{ item.ItemAttributes.ReleaseDate|date("d F Y") }}"></input>
+        <input name="releaseDate" type="hidden" value="{{ item.ItemAttributes.ReleaseDate|date("d F Y") }}"/>
     {% endif %}
 {% endblock %}
 

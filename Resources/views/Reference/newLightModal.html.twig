@@ -1,24 +1,30 @@
-<div id="newReferenceModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">{% trans %}Choose a type{% endtrans %}</h3>
+<div id="newReferenceModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">{% trans %}Choose a type{% endtrans %}</h3>
+            </div>
+            <div class="modal-body">
+                {% include "IcapReferenceBundle:Reference:newLightForm.html.twig" %}
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans %}Cancel{% endtrans %}</button>
+                    <button id="newReferenceModal-submit" class="btn btn-primary"><i class="icon-bookmark icon-white"></i> {% trans %}Create{% endtrans %}</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="modal-body">
-        {% include "IcapReferenceBundle:Reference:newLightForm.html.twig" %}
-    </div>
-    <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">{% trans %}Cancel{% endtrans %}</button>
-        <button id="newReferenceModal-submit" class="btn btn-primary"><i class="icon-bookmark icon-white"></i> {% trans %}Create{% endtrans %}</button>
-    </div>
-
-    <script type="text/javascript">
-        jQuery(document).ready(function () {
-            jQuery('form[name="icap_reference_choose_type"] > input[type="submit"]').hide();
-
-            jQuery('#newReferenceModal-submit').on('click', function() {
-                //I do the "click" on submit button for keep html5 warning
-                jQuery('form[name="icap_reference_choose_type"] > input[type="submit"]').trigger('click');
-            });
-        });
-    </script>
 </div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery('form[name="icap_reference_choose_type"] > input[type="submit"]').hide();
+
+        jQuery('#newReferenceModal-submit').on('click', function() {
+            //I do the "click" on submit button for keep html5 warning
+            jQuery('form[name="icap_reference_choose_type"] > input[type="submit"]').trigger('click');
+        });
+    });
+</script>

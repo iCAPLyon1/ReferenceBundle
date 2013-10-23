@@ -1,10 +1,8 @@
+{% form_theme form "IcapReferenceBundle::form_theme_bootstrap3.html.twig" %}
+
 <form id="newReferenceModal-form" name="icap_reference_choose_type" method="POST" class="form-vertical" action="{{ path("icap_reference_create_light", {'resourceId': referenceBank.id}) }}">
-    <div class="control-group">
-        {{ form_label(form.type, null,  {'label_attr': {'class': 'control-label'}}) }}
-        <div class="controls">
-            {{ form_errors(form.type) }}
-            {{ form_widget(form.type) }}
-        </div>
+    <div class="row">
+        {{ form_row(form.type,  {'label': 'Choose a type', 'label_col_size': 'col-md-4', 'input_col_size': 'col-md-8'}) }}
     </div>
     {{ form_rest(form) }}
     <input type="submit" value="{% trans %}Create{% endtrans %}" class="btn btn-primary"/>

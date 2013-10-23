@@ -1,19 +1,18 @@
 {% extends "IcapReferenceBundle::layout.html.twig" %}
 {% block reference_breadcrumb %}
-    <li class="active"><i class="icon-file"></i>{{ referenceBank.name }}</li>
+    <li class="active"><span class="glyphicon icon-file"></span> {{ referenceBank.resourceNode.name }}</li>
 {% endblock %}
 
 {% block reference_content %}
-    <div class="container-fluid">
+    <div class="container">
         <header>
-            <div class="row-fluid">
-                <div class="span2">
+            <div class="row">
+                <div class="col-md-2">
                     <a href="{{ path('icap_reference_new_light', { 'resourceId': referenceBank.id }) }}" class="new-reference btn btn-primary">
-                        <i class="icon-bookmark icon-white"></i> 
-                        {% trans %}New{% endtrans %}
+                        <span class="glyphicon icon-bookmark icon-white"></span> {% trans %}New{% endtrans %}
                     </a>
                 </div>
-                <div class="span10 text-right">
+                <div class="col-md-10 text-right">
                     {% if pager.haveToPaginate %}
                         {{ 
                             pagerfanta(
@@ -34,11 +33,11 @@
         {% if pager %}
             {% for reference in pager.currentPageResults %}
                 <div class="reference-list-item well">
-                    <div class="row-fluid">
-                        <div class="span1">
+                    <div class="row">
+                        <div class="col-md-1">
                             {% include "IcapReferenceBundle:Reference:icon.html.twig" %}
                         </div>
-                        <div class="span7">
+                        <div class="col-md-7">
                             {% if reference.type == 'bibliography' %}
                                 {% include "IcapReferenceBundle:Reference:ListDetailBibliography.html.twig" %}
                             {% elseif reference.type == 'filmography' %}
@@ -50,13 +49,15 @@
                             {% endif %}
                         </div>
                         {% if is_granted('EDIT', reference) %}
-                            <div class="span4 btn-group text-right">
-                                <a href="{{ path('icap_reference_edit', { 'resourceId': referenceBank.id, 'id': reference.id }) }}" class="btn btn-primary">
-                                    <i class="icon-edit"></i> {% trans %}Edit{% endtrans %}
-                                </a>
-                                <a href="{{ path('icap_reference_delete', { 'resourceId': referenceBank.id, 'id': reference.id }) }}" class="delete-reference btn btn-danger">
-                                    <i class="icon-remove-sign"></i> {% trans %}Delete{% endtrans %}
-                                </a>
+                            <div class="col-md-4">
+                                <div class="btn-group pull-right">
+                                    <a href="{{ path('icap_reference_edit', { 'resourceId': referenceBank.id, 'id': reference.id }) }}" class="btn btn-default btn-xs">
+                                        <span class="glyphicon icon-edit"></span> {% trans %}Edit{% endtrans %}
+                                    </a>
+                                    <a href="{{ path('icap_reference_delete', { 'resourceId': referenceBank.id, 'id': reference.id }) }}" class="delete-reference btn btn-danger btn-xs">
+                                        <span class="glyphicon icon-remove"></span> {% trans %}Delete{% endtrans %}
+                                    </a>
+                                </div>
                             </div>
                         {% endif %}
                     </div>
@@ -68,14 +69,13 @@
 
         {% if pager and pager.currentPageResults|length > 0 %}
             <header>
-                <div class="row-fluid">
-                    <div class="span2">
+                <div class="row">
+                    <div class="col-md-2">
                         <a href="{{ path('icap_reference_new_light', { 'resourceId': referenceBank.id }) }}" class="new-reference btn btn-primary">
-                            <i class="icon-bookmark icon-white"></i> 
-                            {% trans %}New{% endtrans %}
+                            <span class="glyphicon icon-bookmark icon-white"></span> {% trans %}New{% endtrans %}
                         </a>
                     </div>
-                    <div class="span10 text-right">
+                    <div class="col-md-10 text-right">
                         {% if pager.haveToPaginate %}
                             {{ 
                                 pagerfanta(

@@ -11,7 +11,7 @@ class DeleteReferenceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id', 'hidden', array('property_path' => false))
+            ->add('id', 'hidden', array('mapped' => false))
         ;
     }
 
